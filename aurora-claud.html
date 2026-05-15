@@ -86,7 +86,7 @@ h1.hero-title em{font-style:normal;background:linear-gradient(90deg,var(--cyan-d
 .btn-outline{background:transparent;color:var(--ink);padding:14px 32px;border-radius:100px;font-size:15px;font-weight:400;border:1px solid var(--border);transition:var(--transition);display:inline-flex;align-items:center;gap:10px;cursor:pointer}
 .btn-outline:hover{border-color:var(--purple);color:var(--purple);transform:translateY(-2px)}
 .hero-visual{margin-top:72px;opacity:0;animation:fadeUp 0.9s 0.65s forwards}
-.hero-mockup{max-width:780px;width:100%;margin:0 auto;display:block}
+.hero-mockup{max-width:780px;width:100%;margin:0 auto;display:block;clip-path:inset(6px 18px)}
 
 /* SECTION COMMONS */
 section{padding:100px 6vw}
@@ -190,7 +190,7 @@ section{padding:100px 6vw}
 .project-preview{height:220px;background:var(--surface);position:relative;overflow:hidden;flex-shrink:0}
 .project-preview iframe{width:200%;height:200%;transform:scale(0.5);transform-origin:0 0;pointer-events:none;border:none}
 .project-preview-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(10,10,14,0.4))}
-.project-cat{position:absolute;top:16px;left:16px;padding:4px 12px;border-radius:100px;font-size:11px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase}
+.project-cat{display:inline-block;padding:4px 12px;border-radius:100px;font-size:11px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:10px}
 .cat-blue{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-border)}
 .cat-cyan{background:var(--cyan-bg);color:var(--cyan-dark);border:1px solid var(--cyan-border)}
 .cat-magenta{background:var(--magenta-bg);color:var(--magenta);border:1px solid var(--magenta-border)}
@@ -245,6 +245,15 @@ footer{background:var(--ink);border-top:1px solid rgba(255,255,255,0.06);padding
 .social-link:hover{border-color:var(--cyan);background:rgba(0,200,180,0.08)}
 .social-link svg{width:15px;height:15px;stroke:rgba(255,255,255,0.5);fill:none}
 .social-link:hover svg{stroke:var(--cyan)}
+
+/* AUDIO BUTTON */
+.audio-btn{position:fixed;bottom:28px;right:28px;z-index:9998;width:44px;height:44px;border-radius:50%;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--purple),var(--cyan-dark));box-shadow:0 4px 20px rgba(108,71,255,0.35);transition:var(--transition)}
+.audio-btn:hover{transform:scale(1.1);box-shadow:0 8px 28px rgba(108,71,255,0.45)}
+.audio-btn svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.audio-btn .icon-muted{display:none}
+.audio-btn.muted .icon-sound{display:none}
+.audio-btn.muted .icon-muted{display:block}
+.audio-btn.muted{background:rgba(60,60,70,0.85);box-shadow:0 4px 16px rgba(0,0,0,0.2)}
 
 /* CONTACT MODAL */
 .modal-backdrop{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity 0.25s cubic-bezier(0.4,0,0.2,1)}
@@ -347,65 +356,99 @@ section{padding:72px 5vw}
       </a>
     </div>
     <div class="hero-visual">
-      <img src="images/mockups.png" alt="Aurora Claud — Mockup" class="hero-mockup">
+      <img src="images/gif.gif" alt="Aurora Claud — Mockup" class="hero-mockup">
     </div>
   </div>
 </section>
 
-<!-- SERVICES -->
-<section class="services" id="servicios">
-  <div class="services-header reveal">
-    <span class="section-label">Servicios</span>
-    <h2 class="section-title">Todo lo que tu empresa digital necesita</h2>
-    <div class="divider"></div>
-    <p class="section-sub">Soluciones de software a medida, diseñadas con criterio técnico y atención al detalle que marca la diferencia.</p>
+<!-- PORTFOLIO -->
+<section class="portfolio" id="proyectos">
+  <div class="portfolio-header">
+    <div class="reveal">
+      <span class="section-label">Portafolio</span>
+      <h2 class="section-title">Últimos desarrollos</h2>
+      <div class="divider"></div>
+      <p class="section-sub">Proyectos reales, entregados a clientes reales. Cada uno construido con atención al detalle y enfoque en resultados.</p>
+    </div>
   </div>
-  <div class="services-grid">
-    <div class="service-card sc-cyan reveal">
-      <div class="service-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7 8h10M7 12h6M7 16h8"/></svg></div>
-      <h3 class="service-name">Desarrollo Web</h3>
-      <p class="service-desc">Sitios y plataformas de alto rendimiento con arquitectura moderna, optimizados para velocidad y conversión.</p>
+  <div class="projects-grid">
+
+    <!-- Project 1 -->
+    <div class="project-card reveal">
+      <div class="project-preview" style="background:#0a0e1a">
+        <iframe src="https://www.mananrentcar.com/" loading="lazy" title="Manan Rent Car" scrolling="no"></iframe>
+        <div class="project-preview-overlay"></div>
+      </div>
+      <div class="project-body">
+        <span class="project-cat cat-blue">Alquiler de Vehículos</span>
+        <h3 class="project-name">Manan Rent Car</h3>
+        <p class="project-desc">Plataforma web premium para alquiler de vehículos con catálogo en tiempo real, sistema de reservas y integración WhatsApp. Diseño orientado a conversión con foco en experiencia móvil.</p>
+        <div class="project-actions">
+          <a href="https://www.mananrentcar.com/" target="_blank" class="btn-sm-dark">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Visitar sitio
+          </a>
+        </div>
+      </div>
     </div>
-    <div class="service-card sc-purple reveal reveal-delay-1">
-      <div class="service-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="18" r="1"/></svg></div>
-      <h3 class="service-name">Apps Android</h3>
-      <p class="service-desc">Aplicaciones móviles nativas e híbridas con interfaces fluidas y experiencias de usuario excepcionales.</p>
+
+    <!-- Project 2 -->
+    <div class="project-card reveal reveal-delay-1">
+      <div class="project-preview" style="background:#05101e">
+        <iframe src="https://enfoquemundial.com/" loading="lazy" title="Enfoque Mundial" scrolling="no"></iframe>
+        <div class="project-preview-overlay"></div>
+      </div>
+      <div class="project-body">
+        <span class="project-cat cat-cyan">Periodismo Digital</span>
+        <h3 class="project-name">Enfoque Mundial</h3>
+        <p class="project-desc">Portal de noticias internacionales con arquitectura editorial optimizada para SEO, carga rápida y alta legibilidad. Diseño limpio que prioriza el contenido y la credibilidad.</p>
+        <div class="project-actions">
+          <a href="https://enfoquemundial.com/" target="_blank" class="btn-sm-dark">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Visitar sitio
+          </a>
+        </div>
+      </div>
     </div>
-    <div class="service-card sc-blue reveal reveal-delay-2">
-      <div class="service-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
-      <h3 class="service-name">Software Empresarial</h3>
-      <p class="service-desc">Sistemas personalizados que automatizan operaciones internas y escalan con el crecimiento de tu empresa.</p>
+
+    <!-- Project 3 -->
+    <div class="project-card reveal reveal-delay-2">
+      <div class="project-preview" style="background:#1a0a0a">
+        <iframe src="https://aurorabakery.github.io/Aurorabakery/" loading="lazy" title="Aurora Bakery" scrolling="no"></iframe>
+        <div class="project-preview-overlay"></div>
+      </div>
+      <div class="project-body">
+        <span class="project-cat cat-magenta">Gastronomía & E-commerce</span>
+        <h3 class="project-name">Aurora Bakery</h3>
+        <p class="project-desc">Sitio web artesanal para panadería premium con menú interactivo, galería de productos y canal de pedidos. Estética cálida con enfoque en la identidad de marca y conversión local.</p>
+        <div class="project-actions">
+          <a href="https://aurorabakery.github.io/Aurorabakery/" target="_blank" class="btn-sm-dark">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Visitar sitio
+          </a>
+        </div>
+      </div>
     </div>
-    <div class="service-card sc-orange reveal">
-      <div class="service-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
-      <h3 class="service-name">Automatizaciones</h3>
-      <p class="service-desc">Flujos de trabajo inteligentes que eliminan tareas manuales, reducen errores y liberan tiempo productivo.</p>
+
+    <!-- Project 4 -->
+    <div class="project-card reveal reveal-delay-3">
+      <div class="project-preview" style="background:#0d0d12">
+        <img src="images/scortsantiago.jpg" alt="Scort Santiago" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block">
+        <div class="project-preview-overlay"></div>
+      </div>
+      <div class="project-body">
+        <span class="project-cat cat-purple">Entretenimiento VIP</span>
+        <h3 class="project-name">Scort Santiago</h3>
+        <p class="project-desc">Plataforma de acompañantes premium en Santiago, República Dominicana. Diseño de lujo con perfiles verificados, experiencia discreta y navegación elegante orientada a un público de alto nivel.</p>
+        <div class="project-actions">
+          <a href="https://scortsantiago.com/" target="_blank" class="btn-sm-dark">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Visitar sitio
+          </a>
+        </div>
+      </div>
     </div>
-    <div class="service-card sc-green reveal reveal-delay-1">
-      <div class="service-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg></div>
-      <h3 class="service-name">APIs e Integraciones</h3>
-      <p class="service-desc">Conectamos plataformas, servicios y bases de datos con APIs robustas y arquitecturas orientadas a microservicios.</p>
-    </div>
-    <div class="service-card sc-magenta reveal reveal-delay-2">
-      <div class="service-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
-      <h3 class="service-name">Dashboards</h3>
-      <p class="service-desc">Paneles de control en tiempo real con visualización de datos clara, accionable y visualmente impecable.</p>
-    </div>
-    <div class="service-card sc-purple reveal">
-      <div class="service-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div>
-      <h3 class="service-name">UI/UX Design</h3>
-      <p class="service-desc">Diseño estratégico de interfaces que guían al usuario, aumentan retención y comunican valor desde el primer clic.</p>
-    </div>
-    <div class="service-card sc-cyan reveal reveal-delay-1">
-      <div class="service-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
-      <h3 class="service-name">Hosting y Despliegue</h3>
-      <p class="service-desc">Infraestructura confiable en la nube con CI/CD, monitoreo constante y respaldo automatizado.</p>
-    </div>
-    <div class="service-card sc-orange reveal reveal-delay-2">
-      <div class="service-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>
-      <h3 class="service-name">SEO Técnico</h3>
-      <p class="service-desc">Optimización profunda de rendimiento y visibilidad orgánica: Core Web Vitals, estructura semántica y velocidad real.</p>
-    </div>
+
   </div>
 </section>
 
@@ -482,75 +525,60 @@ section{padding:72px 5vw}
   </div>
 </section>
 
-<!-- PORTFOLIO -->
-<section class="portfolio" id="proyectos">
-  <div class="portfolio-header">
-    <div class="reveal">
-      <span class="section-label">Portafolio</span>
-      <h2 class="section-title">Últimos desarrollos</h2>
-      <div class="divider"></div>
-      <p class="section-sub">Proyectos reales, entregados a clientes reales. Cada uno construido con atención al detalle y enfoque en resultados.</p>
-    </div>
+<!-- SERVICES -->
+<section class="services" id="servicios">
+  <div class="services-header reveal">
+    <span class="section-label">Servicios</span>
+    <h2 class="section-title">Todo lo que tu empresa digital necesita</h2>
+    <div class="divider"></div>
+    <p class="section-sub">Soluciones de software a medida, diseñadas con criterio técnico y atención al detalle que marca la diferencia.</p>
   </div>
-  <div class="projects-grid">
-
-    <!-- Project 1 -->
-    <div class="project-card reveal">
-      <div class="project-preview" style="background:#0a0e1a">
-        <iframe src="https://www.mananrentcar.com/" loading="lazy" title="Manan Rent Car" scrolling="no"></iframe>
-        <div class="project-preview-overlay"></div>
-        <span class="project-cat cat-blue">Alquiler de Vehículos</span>
-      </div>
-      <div class="project-body">
-        <h3 class="project-name">Manan Rent Car</h3>
-        <p class="project-desc">Plataforma web premium para alquiler de vehículos con catálogo en tiempo real, sistema de reservas y integración WhatsApp. Diseño orientado a conversión con foco en experiencia móvil.</p>
-        <div class="project-actions">
-          <a href="https://www.mananrentcar.com/" target="_blank" class="btn-sm-dark">
-            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            Visitar sitio
-          </a>
-        </div>
-      </div>
+  <div class="services-grid">
+    <div class="service-card sc-cyan reveal">
+      <div class="service-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7 8h10M7 12h6M7 16h8"/></svg></div>
+      <h3 class="service-name">Desarrollo Web</h3>
+      <p class="service-desc">Sitios y plataformas de alto rendimiento con arquitectura moderna, optimizados para velocidad y conversión.</p>
     </div>
-
-    <!-- Project 2 -->
-    <div class="project-card reveal reveal-delay-1">
-      <div class="project-preview" style="background:#05101e">
-        <iframe src="https://enfoquemundial.com/" loading="lazy" title="Enfoque Mundial" scrolling="no"></iframe>
-        <div class="project-preview-overlay"></div>
-        <span class="project-cat cat-cyan">Periodismo Digital</span>
-      </div>
-      <div class="project-body">
-        <h3 class="project-name">Enfoque Mundial</h3>
-        <p class="project-desc">Portal de noticias internacionales con arquitectura editorial optimizada para SEO, carga rápida y alta legibilidad. Diseño limpio que prioriza el contenido y la credibilidad.</p>
-        <div class="project-actions">
-          <a href="https://enfoquemundial.com/" target="_blank" class="btn-sm-dark">
-            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            Visitar sitio
-          </a>
-        </div>
-      </div>
+    <div class="service-card sc-purple reveal reveal-delay-1">
+      <div class="service-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="18" r="1"/></svg></div>
+      <h3 class="service-name">Apps Android</h3>
+      <p class="service-desc">Aplicaciones móviles nativas e híbridas con interfaces fluidas y experiencias de usuario excepcionales.</p>
     </div>
-
-    <!-- Project 3 -->
-    <div class="project-card reveal reveal-delay-2">
-      <div class="project-preview" style="background:#1a0a0a">
-        <iframe src="https://aurorabakery.github.io/Aurorabakery/" loading="lazy" title="Aurora Bakery" scrolling="no"></iframe>
-        <div class="project-preview-overlay"></div>
-        <span class="project-cat cat-magenta">Gastronomía & E-commerce</span>
-      </div>
-      <div class="project-body">
-        <h3 class="project-name">Aurora Bakery</h3>
-        <p class="project-desc">Sitio web artesanal para panadería premium con menú interactivo, galería de productos y canal de pedidos. Estética cálida con enfoque en la identidad de marca y conversión local.</p>
-        <div class="project-actions">
-          <a href="https://aurorabakery.github.io/Aurorabakery/" target="_blank" class="btn-sm-dark">
-            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            Visitar sitio
-          </a>
-        </div>
-      </div>
+    <div class="service-card sc-blue reveal reveal-delay-2">
+      <div class="service-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+      <h3 class="service-name">Software Empresarial</h3>
+      <p class="service-desc">Sistemas personalizados que automatizan operaciones internas y escalan con el crecimiento de tu empresa.</p>
     </div>
-
+    <div class="service-card sc-orange reveal">
+      <div class="service-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+      <h3 class="service-name">Automatizaciones</h3>
+      <p class="service-desc">Flujos de trabajo inteligentes que eliminan tareas manuales, reducen errores y liberan tiempo productivo.</p>
+    </div>
+    <div class="service-card sc-green reveal reveal-delay-1">
+      <div class="service-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg></div>
+      <h3 class="service-name">APIs e Integraciones</h3>
+      <p class="service-desc">Conectamos plataformas, servicios y bases de datos con APIs robustas y arquitecturas orientadas a microservicios.</p>
+    </div>
+    <div class="service-card sc-magenta reveal reveal-delay-2">
+      <div class="service-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+      <h3 class="service-name">Dashboards</h3>
+      <p class="service-desc">Paneles de control en tiempo real con visualización de datos clara, accionable y visualmente impecable.</p>
+    </div>
+    <div class="service-card sc-purple reveal">
+      <div class="service-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div>
+      <h3 class="service-name">UI/UX Design</h3>
+      <p class="service-desc">Diseño estratégico de interfaces que guían al usuario, aumentan retención y comunican valor desde el primer clic.</p>
+    </div>
+    <div class="service-card sc-cyan reveal reveal-delay-1">
+      <div class="service-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+      <h3 class="service-name">Hosting y Despliegue</h3>
+      <p class="service-desc">Infraestructura confiable en la nube con CI/CD, monitoreo constante y respaldo automatizado.</p>
+    </div>
+    <div class="service-card sc-orange reveal reveal-delay-2">
+      <div class="service-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>
+      <h3 class="service-name">SEO Técnico</h3>
+      <p class="service-desc">Optimización profunda de rendimiento y visibilidad orgánica: Core Web Vitals, estructura semántica y velocidad real.</p>
+    </div>
   </div>
 </section>
 
@@ -657,6 +685,27 @@ section{padding:72px 5vw}
     </div>
   </div>
 </footer>
+
+<!-- AUDIO BUTTON -->
+<button class="audio-btn" id="audioBtn" aria-label="Silenciar audio" title="Silenciar / Activar audio">
+  <!-- Ícono sonido activo -->
+  <svg class="icon-sound" viewBox="0 0 24 24">
+    <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+    <path d="M15.54 8.46a5 5 0 010 7.07"/>
+    <path d="M19.07 4.93a10 10 0 010 14.14"/>
+  </svg>
+  <!-- Ícono silenciado -->
+  <svg class="icon-muted" viewBox="0 0 24 24">
+    <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+    <line x1="23" y1="9" x2="17" y2="15"/>
+    <line x1="17" y1="9" x2="23" y2="15"/>
+  </svg>
+</button>
+
+<!-- AUDIO -->
+<audio id="bg-audio">
+  <source src="audio/ElevenLabs_2026-05-15T15_22_15_Samanta - Warm, Tender, Expressive_pvc_sp100_s38_sb90_se0_b_m2.mp3" type="audio/mpeg">
+</audio>
 
 <!-- CONTACT MODAL -->
 <div class="modal-backdrop" id="contactModal" onclick="handleBackdropClick(event)">
@@ -785,6 +834,106 @@ document.querySelectorAll('.nav-links a').forEach(a => {
     }
   });
 });
+
+// Audio autoplay + botón mute/unmute
+(function () {
+  const audio = document.getElementById('bg-audio');
+  const btn = document.getElementById('audioBtn');
+  if (!audio || !btn) return;
+
+  audio.volume = 0.45;
+  audio.currentTime = 0;
+
+  function setMuted(muted) {
+    audio.muted = muted;
+    btn.classList.toggle('muted', muted);
+    btn.setAttribute('aria-label', muted ? 'Activar audio' : 'Silenciar audio');
+  }
+
+  setMuted(false);
+
+  btn.addEventListener('click', () => {
+    if (audio.paused || audio.ended) {
+      audio.currentTime = 0;
+      audio.play().catch(() => {});
+      setMuted(false);
+    } else {
+      setMuted(!audio.muted);
+    }
+  });
+
+  const unlockAndPlay = () => {
+    audio.currentTime = 0;
+    audio.play().catch(() => {});
+    ['click','touchstart','keydown','scroll'].forEach(ev =>
+      document.removeEventListener(ev, unlockAndPlay)
+    );
+  };
+
+  audio.currentTime = 0;
+  audio.play().catch(() => {
+    ['click','touchstart','keydown','scroll'].forEach(ev =>
+      document.addEventListener(ev, unlockAndPlay, { once: true })
+    );
+  });
+})();
+
+// GIF: play once then freeze on last frame
+(function () {
+  const t0 = Date.now();
+  const img = document.querySelector('.hero-mockup');
+  if (!img) return;
+
+  function gifInfo(buffer) {
+    const d = new Uint8Array(buffer);
+    let i = 6, ms = 0, lastDelay = 100;
+    const packed = d[i + 4], hasGCT = (packed >> 7) & 1, gctSz = packed & 7;
+    i += 7 + (hasGCT ? 3 * Math.pow(2, gctSz + 1) : 0);
+    while (i < d.length) {
+      if (d[i] === 0x3B) break;
+      if (d[i] === 0x21) {
+        if (d[i + 1] === 0xF9) {
+          const delay = d[i + 4] | (d[i + 5] << 8);
+          lastDelay = (delay || 2) * 10;
+          ms += lastDelay;
+        }
+        i += 2;
+        while (d[i]) i += d[i] + 1;
+        i++;
+      } else if (d[i] === 0x2C) {
+        i++;
+        i += 8;
+        const p = d[i]; i++;
+        if ((p >> 7) & 1) i += 3 * Math.pow(2, (p & 7) + 1);
+        i++;
+        while (d[i]) i += d[i] + 1;
+        i++;
+      } else i++;
+    }
+    return { duration: ms, lastDelay };
+  }
+
+  function freeze(el) {
+    const cv = document.createElement('canvas');
+    cv.className = el.className;
+    cv.width = el.naturalWidth;
+    cv.height = el.naturalHeight;
+    cv.getContext('2d').drawImage(el, 0, 0);
+    el.parentNode.replaceChild(cv, el);
+  }
+
+  fetch(img.src)
+    .then(r => r.arrayBuffer())
+    .then(buf => {
+      const { duration, lastDelay } = gifInfo(buf);
+      const elapsed = Date.now() - t0;
+      // Dispara en el centro del último frame, antes que el loop reinicie
+      let timeout = duration - elapsed - Math.floor(lastDelay / 2);
+      if (timeout < 0) timeout += duration;
+      setTimeout(() => freeze(img), timeout);
+    })
+    .catch(() => setTimeout(() => freeze(img), 6000));
+})();
 </script>
 </body>
 </html>

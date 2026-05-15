@@ -62,3 +62,102 @@ document.querySelectorAll('.nav-links a').forEach(a => {
     }
   });
 });
+
+// Audio autoplay + botón mute/unmute
+(function () {
+  const audio = document.getElementById('bg-audio');
+  const btn = document.getElementById('audioBtn');
+  if (!audio || !btn) return;
+
+  audio.volume = 0.45;
+  audio.currentTime = 0;
+
+  function setMuted(muted) {
+    audio.muted = muted;
+    btn.classList.toggle('muted', muted);
+    btn.setAttribute('aria-label', muted ? 'Activar audio' : 'Silenciar audio');
+  }
+
+  setMuted(false);
+
+  btn.addEventListener('click', () => {
+    if (audio.paused || audio.ended) {
+      audio.currentTime = 0;
+      audio.play().catch(() => {});
+      setMuted(false);
+    } else {
+      setMuted(!audio.muted);
+    }
+  });
+
+  const unlockAndPlay = () => {
+    audio.currentTime = 0;
+    audio.play().catch(() => {});
+    ['click','touchstart','keydown','scroll'].forEach(ev =>
+      document.removeEventListener(ev, unlockAndPlay)
+    );
+  };
+
+  audio.currentTime = 0;
+  audio.play().catch(() => {
+    ['click','touchstart','keydown','scroll'].forEach(ev =>
+      document.addEventListener(ev, unlockAndPlay, { once: true })
+    );
+  });
+})();
+
+// GIF: play once then freeze on last frame
+(function () {
+  const t0 = Date.now();
+  const img = document.querySelector('.hero-mockup');
+  if (!img) return;
+
+  function gifInfo(buffer) {
+    const d = new Uint8Array(buffer);
+    let i = 6, ms = 0, lastDelay = 100;
+    const packed = d[i + 4], hasGCT = (packed >> 7) & 1, gctSz = packed & 7;
+    i += 7 + (hasGCT ? 3 * Math.pow(2, gctSz + 1) : 0);
+    while (i < d.length) {
+      if (d[i] === 0x3B) break;
+      if (d[i] === 0x21) {
+        if (d[i + 1] === 0xF9) {
+          const delay = d[i + 4] | (d[i + 5] << 8);
+          lastDelay = (delay || 2) * 10;
+          ms += lastDelay;
+        }
+        i += 2;
+        while (d[i]) i += d[i] + 1;
+        i++;
+      } else if (d[i] === 0x2C) {
+        i++;
+        i += 8;
+        const p = d[i]; i++;
+        if ((p >> 7) & 1) i += 3 * Math.pow(2, (p & 7) + 1);
+        i++;
+        while (d[i]) i += d[i] + 1;
+        i++;
+      } else i++;
+    }
+    return { duration: ms, lastDelay };
+  }
+
+  function freeze(el) {
+    const cv = document.createElement('canvas');
+    cv.className = el.className;
+    cv.width = el.naturalWidth;
+    cv.height = el.naturalHeight;
+    cv.getContext('2d').drawImage(el, 0, 0);
+    el.parentNode.replaceChild(cv, el);
+  }
+
+  fetch(img.src)
+    .then(r => r.arrayBuffer())
+    .then(buf => {
+      const { duration, lastDelay } = gifInfo(buf);
+      const elapsed = Date.now() - t0;
+      let timeout = duration - elapsed - Math.floor(lastDelay / 2);
+      if (timeout < 0) timeout += duration;
+      setTimeout(() => freeze(img), timeout);
+    })
+    .catch(() => setTimeout(() => freeze(img), 6000));
+})();
