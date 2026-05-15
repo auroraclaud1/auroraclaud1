@@ -86,24 +86,7 @@ h1.hero-title em{font-style:normal;background:linear-gradient(90deg,var(--cyan-d
 .btn-outline{background:transparent;color:var(--ink);padding:14px 32px;border-radius:100px;font-size:15px;font-weight:400;border:1px solid var(--border);transition:var(--transition);display:inline-flex;align-items:center;gap:10px;cursor:pointer}
 .btn-outline:hover{border-color:var(--purple);color:var(--purple);transform:translateY(-2px)}
 .hero-visual{margin-top:72px;opacity:0;animation:fadeUp 0.9s 0.65s forwards}
-.code-window{background:var(--ink);border-radius:var(--radius-lg);padding:0;overflow:hidden;box-shadow:var(--shadow-lg),0 0 0 1px rgba(255,255,255,0.05);max-width:780px;margin:0 auto;text-align:left}
-.code-bar{display:flex;align-items:center;gap:8px;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.07)}
-.dot{width:12px;height:12px;border-radius:50%}
-.d-red{background:#ff5f57}.d-yellow{background:#febc2e}.d-green{background:#28c840}
-.code-title{font-size:12px;color:rgba(255,255,255,0.35);flex:1;text-align:center;letter-spacing:0.04em}
-.code-body{padding:28px 32px;font-family:'Courier New',monospace;font-size:13px;line-height:1.9;overflow-x:auto}
-.c-comment{color:rgba(255,255,255,0.28)}
-.c-key{color:#00c8b4}
-.c-str{color:#a8d8b0}
-.c-fn{color:#c5a0f5}
-.c-num{color:#f5c842}
-.c-base{color:rgba(255,255,255,0.75)}
-.metrics-row{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid rgba(255,255,255,0.07)}
-.metric-box{padding:22px 28px;border-right:1px solid rgba(255,255,255,0.07)}
-.metric-box:last-child{border-right:none}
-.metric-val{font-family:'Plus Jakarta Sans',sans-serif;font-size:28px;font-weight:700;color:var(--white);letter-spacing:-0.02em}
-.metric-val span{color:var(--cyan);font-size:20px}
-.metric-label{font-size:12px;color:rgba(255,255,255,0.38);margin-top:2px;letter-spacing:0.03em}
+.hero-mockup{max-width:780px;width:100%;margin:0 auto;display:block}
 
 /* SECTION COMMONS */
 section{padding:100px 6vw}
@@ -364,38 +347,7 @@ section{padding:72px 5vw}
       </a>
     </div>
     <div class="hero-visual">
-      <div class="code-window">
-        <div class="code-bar">
-          <div class="dot d-red"></div>
-          <div class="dot d-yellow"></div>
-          <div class="dot d-green"></div>
-          <span class="code-title">aurora-claud / deploy</span>
-        </div>
-        <div class="code-body">
-          <div><span class="c-comment">// Aurora Claud — sistema en producción</span></div>
-          <div><span class="c-key">const</span> <span class="c-base">aurora</span> = <span class="c-fn">createApp</span>({</div>
-          <div>&nbsp;&nbsp;<span class="c-key">performance</span>: <span class="c-str">"99.98% uptime"</span>,</div>
-          <div>&nbsp;&nbsp;<span class="c-key">stack</span>: [<span class="c-str">"Next.js"</span>, <span class="c-str">"Node"</span>, <span class="c-str">"PostgreSQL"</span>, <span class="c-str">"Docker"</span>],</div>
-          <div>&nbsp;&nbsp;<span class="c-key">delivery</span>: <span class="c-num">true</span>,&nbsp;<span class="c-key">scalable</span>: <span class="c-num">true</span></div>
-          <div>});</div>
-          <div>&nbsp;</div>
-          <div><span class="c-fn">aurora</span>.<span class="c-key">deploy</span>() <span class="c-comment">// ✓ Desplegado exitosamente</span></div>
-        </div>
-        <div class="metrics-row">
-          <div class="metric-box">
-            <div class="metric-val">98<span>%</span></div>
-            <div class="metric-label">Lighthouse Score</div>
-          </div>
-          <div class="metric-box">
-            <div class="metric-val">0.8<span>s</span></div>
-            <div class="metric-label">Carga promedio</div>
-          </div>
-          <div class="metric-box">
-            <div class="metric-val">40<span>+</span></div>
-            <div class="metric-label">Proyectos entregados</div>
-          </div>
-        </div>
-      </div>
+      <img src="images/mockups.png" alt="Aurora Claud — Mockup" class="hero-mockup">
     </div>
   </div>
 </section>
