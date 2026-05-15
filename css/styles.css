@@ -167,7 +167,7 @@ section{padding:100px 6vw}
 .project-preview{height:220px;background:var(--surface);position:relative;overflow:hidden;flex-shrink:0}
 .project-preview iframe{width:200%;height:200%;transform:scale(0.5);transform-origin:0 0;pointer-events:none;border:none}
 .project-preview-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(10,10,14,0.4))}
-.project-cat{position:absolute;top:16px;left:16px;padding:4px 12px;border-radius:100px;font-size:11px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase}
+.project-cat{display:inline-block;padding:4px 12px;border-radius:100px;font-size:11px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:10px}
 .cat-blue{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-border)}
 .cat-cyan{background:var(--cyan-bg);color:var(--cyan-dark);border:1px solid var(--cyan-border)}
 .cat-magenta{background:var(--magenta-bg);color:var(--magenta);border:1px solid var(--magenta-border)}
@@ -233,6 +233,11 @@ footer{background:var(--ink);border-top:1px solid rgba(255,255,255,0.06);padding
 .audio-btn.muted .icon-sound{display:none}
 .audio-btn.muted .icon-muted{display:block}
 .audio-btn.muted{background:rgba(60,60,70,0.85);box-shadow:0 4px 16px rgba(0,0,0,0.2)}
+@keyframes pulse-ring{0%{transform:scale(1);opacity:0.6}100%{transform:scale(1.9);opacity:0}}
+.audio-pulse{position:fixed;bottom:28px;right:28px;z-index:9997;width:44px;height:44px;border-radius:50%;background:rgba(108,71,255,0.4);animation:pulse-ring 1.6s ease-out infinite;pointer-events:none}
+.audio-hint{position:fixed;bottom:36px;right:80px;z-index:9999;background:rgba(20,20,30,0.92);color:#fff;font-size:13px;font-weight:500;padding:7px 13px;border-radius:20px;white-space:nowrap;pointer-events:none;opacity:1;transition:opacity 0.5s;font-family:inherit}
+.audio-hint::after{content:'';position:absolute;right:-7px;top:50%;transform:translateY(-50%);border:7px solid transparent;border-left-color:rgba(20,20,30,0.92);border-right:0}
+.audio-hint.hidden{opacity:0}
 
 /* CONTACT MODAL */
 .modal-backdrop{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity 0.25s cubic-bezier(0.4,0,0.2,1)}
