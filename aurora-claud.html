@@ -254,6 +254,11 @@ footer{background:var(--ink);border-top:1px solid rgba(255,255,255,0.06);padding
 .audio-btn.muted .icon-sound{display:none}
 .audio-btn.muted .icon-muted{display:block}
 .audio-btn.muted{background:rgba(60,60,70,0.85);box-shadow:0 4px 16px rgba(0,0,0,0.2)}
+@keyframes pulse-ring{0%{transform:scale(1);opacity:0.6}100%{transform:scale(1.9);opacity:0}}
+.audio-pulse{position:fixed;bottom:28px;right:28px;z-index:9997;width:44px;height:44px;border-radius:50%;background:rgba(108,71,255,0.4);animation:pulse-ring 1.6s ease-out infinite;pointer-events:none}
+.audio-hint{position:fixed;bottom:36px;right:80px;z-index:9999;background:rgba(20,20,30,0.92);color:#fff;font-size:13px;font-weight:500;padding:7px 13px;border-radius:20px;white-space:nowrap;pointer-events:none;opacity:1;transition:opacity 0.5s;font-family:inherit}
+.audio-hint::after{content:'';position:absolute;right:-7px;top:50%;transform:translateY(-50%);border:7px solid transparent;border-left-color:rgba(20,20,30,0.92);border-right:0}
+.audio-hint.hidden{opacity:0}
 
 /* CONTACT MODAL */
 .modal-backdrop{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity 0.25s cubic-bezier(0.4,0,0.2,1)}
@@ -687,6 +692,8 @@ section{padding:72px 5vw}
 </footer>
 
 <!-- AUDIO BUTTON -->
+<div class="audio-pulse" id="audioPulse"></div>
+<div class="audio-hint" id="audioHint">🎵 Toca para escuchar</div>
 <button class="audio-btn" id="audioBtn" aria-label="Silenciar audio" title="Silenciar / Activar audio">
   <!-- Ícono sonido activo -->
   <svg class="icon-sound" viewBox="0 0 24 24">
@@ -839,10 +846,17 @@ document.querySelectorAll('.nav-links a').forEach(a => {
 (function () {
   const audio = document.getElementById('bg-audio');
   const btn = document.getElementById('audioBtn');
+  const hint = document.getElementById('audioHint');
+  const pulse = document.getElementById('audioPulse');
   if (!audio || !btn) return;
 
   audio.volume = 0.45;
   audio.currentTime = 0;
+
+  function hideHint() {
+    if (hint) { hint.classList.add('hidden'); }
+    if (pulse) { pulse.style.display = 'none'; }
+  }
 
   function setMuted(muted) {
     audio.muted = muted;
@@ -853,6 +867,7 @@ document.querySelectorAll('.nav-links a').forEach(a => {
   setMuted(false);
 
   btn.addEventListener('click', () => {
+    hideHint();
     if (audio.paused || audio.ended) {
       audio.currentTime = 0;
       audio.play().catch(() => {});
@@ -863,6 +878,7 @@ document.querySelectorAll('.nav-links a').forEach(a => {
   });
 
   const unlockAndPlay = () => {
+    hideHint();
     audio.currentTime = 0;
     audio.play().catch(() => {});
     ['click','touchstart','keydown','scroll'].forEach(ev =>
@@ -871,7 +887,7 @@ document.querySelectorAll('.nav-links a').forEach(a => {
   };
 
   audio.currentTime = 0;
-  audio.play().catch(() => {
+  audio.play().then(() => hideHint()).catch(() => {
     ['click','touchstart','keydown','scroll'].forEach(ev =>
       document.addEventListener(ev, unlockAndPlay, { once: true })
     );
