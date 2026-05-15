@@ -154,7 +154,7 @@
         </div>
     </header>
 
-    <section id="catalogo" class="py-32 px-4 min-h-screen flex flex-col items-center justify-center viewport-perspective unified-bg relative">
+    <section id="catalogo" class="py-32 px-4 min-h-screen flex flex-col items-center justify-center viewport-perspective unified-bg relative" :class="{ 'overflow-hidden': isZooming }">
         <div class="absolute inset-0 bg-black/30 z-0"></div>
 
         <div class="w-full relative z-10">
@@ -400,15 +400,11 @@
                     this.exitMode = false;
                     document.body.style.overflow = 'hidden';
 
-                    if (window.innerWidth < 768) {
-                        this.modalOpen = true;
-                    } else {
-                        const containerRect = document.querySelector('.blurred-border-container').getBoundingClientRect();
-                        this.zoomPos.x = ((event.clientX - containerRect.left) / containerRect.width) * 100;
-                        this.zoomPos.y = ((event.clientY - containerRect.top) / containerRect.height) * 100;
-                        this.isZooming = true;
-                        setTimeout(() => { this.modalOpen = true; }, 1000);
-                    }
+                    const containerRect = document.querySelector('.blurred-border-container').getBoundingClientRect();
+                    this.zoomPos.x = ((event.clientX - containerRect.left) / containerRect.width) * 100;
+                    this.zoomPos.y = ((event.clientY - containerRect.top) / containerRect.height) * 100;
+                    this.isZooming = true;
+                    setTimeout(() => { this.modalOpen = true; }, 1000);
                 },
                 closeAll() {
                     this.modalOpen = false;
