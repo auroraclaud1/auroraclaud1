@@ -118,6 +118,7 @@
         @media (max-width: 768px) {
             .unified-bg { background-attachment: scroll; }
             .floating-tooltip { display: none !important; }
+            .modal-content-anim { max-height: 85vh; overflow-y: auto; }
         }
     </style>
 </head>
@@ -394,23 +395,27 @@
                     this.mouse.y = e.clientY;
                 },
                 triggerZoom(event, type, apt = null) {
-                    const rect = event.currentTarget.getBoundingClientRect();
-                    const containerRect = document.querySelector('.blurred-border-container').getBoundingClientRect();
-                    this.zoomPos.x = ((event.clientX - containerRect.left) / containerRect.width) * 100;
-                    this.zoomPos.y = ((event.clientY - containerRect.top) / containerRect.height) * 100;
-                    
-                    this.exitMode = false;
-                    this.isZooming = true;
                     this.modalType = type;
                     this.selectedApt = apt;
+                    this.exitMode = false;
+                    document.body.style.overflow = 'hidden';
 
-                    setTimeout(() => { this.modalOpen = true; }, 1000);
+                    if (window.innerWidth < 768) {
+                        this.modalOpen = true;
+                    } else {
+                        const containerRect = document.querySelector('.blurred-border-container').getBoundingClientRect();
+                        this.zoomPos.x = ((event.clientX - containerRect.left) / containerRect.width) * 100;
+                        this.zoomPos.y = ((event.clientY - containerRect.top) / containerRect.height) * 100;
+                        this.isZooming = true;
+                        setTimeout(() => { this.modalOpen = true; }, 1000);
+                    }
                 },
                 closeAll() {
                     this.modalOpen = false;
+                    document.body.style.overflow = '';
                     setTimeout(() => {
                         this.isZooming = false;
-                        this.exitMode = true; 
+                        this.exitMode = true;
                         setTimeout(() => {
                             this.exitMode = false;
                             this.selectedApt = null;
