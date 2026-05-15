@@ -118,21 +118,9 @@
 
         /* MOBILE FIXES */
         @media (max-width: 768px) {
-            /* iOS fix: background-attachment:fixed no funciona en Safari móvil */
-            .unified-bg {
-                background-attachment: scroll;
-            }
-            /* Tooltips de hover ocultos en móvil (no hay hover en touch) */
+            .unified-bg { background-attachment: scroll; }
             .floating-tooltip { display: none !important; }
-            /* Hotspots más fáciles de tocar */
-            .apt-hotspot, .terrace-hotspot {
-                border: 2px solid rgba(251,191,36,0.5);
-                background-color: rgba(251,191,36,0.15);
-            }
-            /* Contenedor del edificio con menos padding */
-            .blurred-border-container { padding: 10px; }
-            /* Modal a pantalla completa en móvil */
-            .modal-content-anim { max-height: 90vh; overflow-y: auto; }
+            .modal-content-anim { max-height: 92vh; overflow-y: auto; }
         }
     </style>
 </head>
@@ -268,23 +256,23 @@
                      class="w-full h-full object-cover min-h-[220px] md:min-h-[450px]"
                      @error="tryNextExtension($event.target, modalType === 'apt' ? selectedApt?.id : 'terraza')">
             </div>
-            <div class="md:w-1/3 p-8 md:p-12 flex flex-col justify-center bg-white border-t md:border-t-0 md:border-l border-zinc-100 text-black">
-                <h2 x-show="modalType === 'apt'" class="text-5xl font-serif italic mb-4" x-text="'Unidad ' + selectedApt?.id"></h2>
-                <h2 x-show="modalType === 'terrace'" class="text-5xl font-serif italic mb-4">Rooftop Lounge</h2>
-                
-                <div class="mb-6">
+            <div class="md:w-1/3 p-6 md:p-12 flex flex-col justify-center bg-white border-t md:border-t-0 md:border-l border-zinc-100 text-black">
+                <h2 x-show="modalType === 'apt'" class="text-3xl md:text-5xl font-serif italic mb-3 md:mb-4" x-text="'Unidad ' + selectedApt?.id"></h2>
+                <h2 x-show="modalType === 'terrace'" class="text-3xl md:text-5xl font-serif italic mb-3 md:mb-4">Rooftop Lounge</h2>
+
+                <div class="mb-4 md:mb-6">
                     <template x-if="modalType === 'apt'">
                         <div>
-                            <p class="text-[#c5a059] text-3xl font-bold mb-1" x-text="formatPrice(selectedApt?.price)"></p>
+                            <p class="text-[#c5a059] text-xl md:text-3xl font-bold mb-1" x-text="formatPrice(selectedApt?.price)"></p>
                             <span class="text-[9px] font-black px-2 py-1 bg-zinc-100 uppercase tracking-widest text-zinc-500" x-text="selectedApt?.status"></span>
                         </div>
                     </template>
                     <template x-if="modalType === 'terrace'">
-                        <p class="text-[#c5a059] text-xl font-bold mb-1">Piscina Infinita y Área BBQ</p>
+                        <p class="text-[#c5a059] text-lg md:text-xl font-bold mb-1">Piscina Infinita y Área BBQ</p>
                     </template>
                 </div>
 
-                <div class="space-y-3 mb-10 border-t border-zinc-100 pt-6 text-zinc-600 text-sm italic leading-relaxed">
+                <div class="space-y-2 md:space-y-3 mb-6 md:mb-10 border-t border-zinc-100 pt-4 md:pt-6 text-zinc-600 text-sm italic leading-relaxed">
                     <template x-if="modalType === 'apt'">
                         <div>
                             <p>✦ <span x-text="selectedApt?.hab"></span> Habitaciones</p>
