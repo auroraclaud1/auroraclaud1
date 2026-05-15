@@ -185,8 +185,14 @@ section{padding:100px 6vw}
 .portfolio{background:var(--off)}
 .portfolio-header{margin-bottom:60px}
 .projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:24px}
-.portfolio-showcase{margin-top:48px}
-.showcase-img{width:100%;border-radius:var(--radius-xl);box-shadow:var(--shadow-lg);display:block}
+.portfolio-showcase{margin-top:56px;background:var(--white);border:1px solid var(--border-soft);border-radius:var(--radius-xl);padding:48px;box-shadow:var(--shadow)}
+.showcase-header{margin-bottom:36px}
+.showcase-title{font-size:clamp(22px,3vw,30px);font-weight:800;color:var(--ink);margin:10px 0 14px;letter-spacing:-0.02em}
+.showcase-desc{font-size:16px;color:var(--ink-3);font-weight:300;max-width:620px;line-height:1.7}
+.showcase-features{display:flex;flex-wrap:wrap;gap:12px 28px;margin-top:22px}
+.showcase-feat{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:500;color:var(--ink-2)}
+.showcase-feat svg{stroke:var(--cyan);flex-shrink:0}
+.showcase-img{width:100%;border-radius:var(--radius-lg);box-shadow:var(--shadow);display:block}
 .project-card{background:var(--white);border:1px solid var(--border-soft);border-radius:var(--radius-xl);overflow:hidden;transition:var(--transition);display:flex;flex-direction:column}
 .project-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-4px)}
 .project-preview{height:220px;background:var(--surface);position:relative;overflow:hidden;flex-shrink:0}
@@ -458,6 +464,29 @@ section{padding:72px 5vw}
 
   </div>
   <div class="portfolio-showcase">
+    <div class="showcase-header">
+      <span class="section-label">Producto propio</span>
+      <h3 class="showcase-title">Sistema de Facturación e Inventariado</h3>
+      <p class="showcase-desc">Gestiona tu negocio desde cualquier dispositivo — computadora o teléfono. Genera facturas al instante, controla tu inventario en tiempo real y mantén todo organizado en un solo lugar.</p>
+      <div class="showcase-features">
+        <div class="showcase-feat">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          Factura al instante desde cualquier dispositivo
+        </div>
+        <div class="showcase-feat">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          Control de inventario en tiempo real
+        </div>
+        <div class="showcase-feat">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          100% compatible con móvil y escritorio
+        </div>
+        <div class="showcase-feat">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          Reportes y estadísticas de ventas
+        </div>
+      </div>
+    </div>
     <img src="images/mockups%20sistema%20de%20facturacion.png" alt="Sistema de Facturación — Mockup" class="showcase-img">
   </div>
 </section>
