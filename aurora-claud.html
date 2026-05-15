@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aurora Claud — Software que transforma empresas</title>
+<meta name="description" content="Aurora Claud desarrolla software premium, aplicaciones móviles, automatizaciones y sistemas digitales de alto rendimiento para empresas modernas.">
+<meta property="og:title" content="Aurora Claud — Software que transforma empresas">
+<meta property="og:description" content="Desarrollo de software premium, apps, automatizaciones y arquitectura digital de alto impacto.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--white:#ffffff;
+--off:#f5f5f8;
+--surface:#eeeef4;
+--ink:#0c0c0e;
+--ink-2:#3a3a40;
+--ink-3:#6e6e7a;
+--ink-4:#9e9ea8;
+--border:#e0e0e8;
+--border-soft:#eaeaef;
+--cyan:#00c8b4;
+--cyan-dark:#009e8e;
+--cyan-bg:#e0faf7;
+--cyan-border:#a3ede7;
+--purple:#6c47ff;
+--purple-dark:#4d2fe0;
+--purple-bg:#eeebff;
+--purple-border:#c4b8ff;
+--magenta:#c026d3;
+--magenta-bg:#fae8ff;
+--magenta-border:#e9a8f5;
+--orange:#f97316;
+--orange-bg:#fff1e6;
+--orange-border:#fdc99a;
+--blue:#2563eb;
+--blue-bg:#eff4ff;
+--blue-border:#bfcffe;
+--green:#16a34a;
+--green-bg:#e8faf0;
+--green-border:#86efac;
+--radius:14px;
+--radius-lg:20px;
+--radius-xl:28px;
+--shadow-sm:0 1px 3px rgba(0,0,0,0.06),0 1px 2px rgba(0,0,0,0.04);
+--shadow:0 4px 16px rgba(0,0,0,0.07),0 1px 4px rgba(0,0,0,0.04);
+--shadow-lg:0 12px 40px rgba(0,0,0,0.10),0 2px 8px rgba(0,0,0,0.05);
+--transition:all 0.28s cubic-bezier(0.4,0,0.2,1);
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--ink);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:999;padding:0 6vw;height:68px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,0.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--border-soft);transition:var(--transition)}
+.nav-logo img{height:36px;width:auto}
+.nav-links{display:flex;align-items:center;gap:36px;list-style:none}
+.nav-links a{font-size:14px;font-weight:400;color:var(--ink-2);letter-spacing:0.01em;transition:color 0.2s}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta{background:linear-gradient(135deg,var(--purple),var(--cyan-dark));color:var(--white)!important;padding:9px 22px;border-radius:100px;font-size:13px!important;font-weight:600!important;letter-spacing:0.02em;transition:var(--transition)!important}
+.nav-cta:hover{opacity:0.88!important;transform:translateY(-1px);box-shadow:0 6px 20px rgba(108,71,255,0.3)!important}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:120px 6vw 80px;text-align:center;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;pointer-events:none;z-index:0}
+.hero-blob{position:absolute;border-radius:50%;filter:blur(100px);opacity:0.55}
+.blob-1{width:700px;height:700px;background:radial-gradient(circle,rgba(0,200,180,0.3),transparent 70%);top:-150px;right:-150px}
+.blob-2{width:600px;height:600px;background:radial-gradient(circle,rgba(108,71,255,0.22),transparent 70%);bottom:-120px;left:-120px}
+.blob-3{width:350px;height:350px;background:radial-gradient(circle,rgba(192,38,211,0.12),transparent 70%);top:38%;left:38%}
+.hero-inner{position:relative;z-index:1;max-width:900px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--purple-bg);border:1px solid var(--purple-border);padding:6px 16px;border-radius:100px;font-size:12px;font-weight:600;color:var(--purple-dark);letter-spacing:0.04em;text-transform:uppercase;margin-bottom:36px;opacity:0;animation:fadeUp 0.7s 0.1s forwards}
+.hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);display:inline-block}
+h1.hero-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(42px,6.5vw,86px);font-weight:800;line-height:1.05;letter-spacing:-0.03em;color:var(--ink);margin-bottom:28px;opacity:0;animation:fadeUp 0.8s 0.2s forwards}
+h1.hero-title em{font-style:normal;background:linear-gradient(90deg,var(--cyan-dark),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:clamp(16px,1.5vw,20px);color:var(--ink-3);max-width:580px;margin:0 auto 48px;font-weight:300;line-height:1.7;opacity:0;animation:fadeUp 0.8s 0.35s forwards}
+.hero-actions{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeUp 0.8s 0.5s forwards}
+.btn-primary{background:linear-gradient(135deg,var(--purple),var(--cyan-dark));color:var(--white);padding:15px 34px;border-radius:100px;font-size:15px;font-weight:600;letter-spacing:0.01em;transition:var(--transition);display:inline-flex;align-items:center;gap:10px;cursor:pointer;box-shadow:0 4px 20px rgba(108,71,255,0.25)}
+.btn-primary:hover{opacity:0.9;transform:translateY(-2px);box-shadow:0 8px 32px rgba(108,71,255,0.35)}
+.btn-outline{background:transparent;color:var(--ink);padding:14px 32px;border-radius:100px;font-size:15px;font-weight:400;border:1px solid var(--border);transition:var(--transition);display:inline-flex;align-items:center;gap:10px;cursor:pointer}
+.btn-outline:hover{border-color:var(--purple);color:var(--purple);transform:translateY(-2px)}
+.hero-visual{margin-top:72px;opacity:0;animation:fadeUp 0.9s 0.65s forwards}
+.code-window{background:var(--ink);border-radius:var(--radius-lg);padding:0;overflow:hidden;box-shadow:var(--shadow-lg),0 0 0 1px rgba(255,255,255,0.05);max-width:780px;margin:0 auto;text-align:left}
+.code-bar{display:flex;align-items:center;gap:8px;padding:14px 20px;border-bottom:1px solid rgba(255,255,255,0.07)}
+.dot{width:12px;height:12px;border-radius:50%}
+.d-red{background:#ff5f57}.d-yellow{background:#febc2e}.d-green{background:#28c840}
+.code-title{font-size:12px;color:rgba(255,255,255,0.35);flex:1;text-align:center;letter-spacing:0.04em}
+.code-body{padding:28px 32px;font-family:'Courier New',monospace;font-size:13px;line-height:1.9;overflow-x:auto}
+.c-comment{color:rgba(255,255,255,0.28)}
+.c-key{color:#00c8b4}
+.c-str{color:#a8d8b0}
+.c-fn{color:#c5a0f5}
+.c-num{color:#f5c842}
+.c-base{color:rgba(255,255,255,0.75)}
+.metrics-row{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid rgba(255,255,255,0.07)}
+.metric-box{padding:22px 28px;border-right:1px solid rgba(255,255,255,0.07)}
+.metric-box:last-child{border-right:none}
+.metric-val{font-family:'Plus Jakarta Sans',sans-serif;font-size:28px;font-weight:700;color:var(--white);letter-spacing:-0.02em}
+.metric-val span{color:var(--cyan);font-size:20px}
+.metric-label{font-size:12px;color:rgba(255,255,255,0.38);margin-top:2px;letter-spacing:0.03em}
+
+/* SECTION COMMONS */
+section{padding:100px 6vw}
+.section-label{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--purple);margin-bottom:16px;display:block}
+.section-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(32px,4vw,52px);font-weight:700;line-height:1.12;letter-spacing:-0.025em;color:var(--ink);margin-bottom:20px}
+.section-sub{font-size:17px;color:var(--ink-3);font-weight:300;line-height:1.7;max-width:560px}
+.divider{width:48px;height:3px;background:linear-gradient(90deg,var(--cyan),var(--purple));margin:24px 0;border-radius:2px}
+
+/* SERVICES */
+.services{background:var(--off)}
+.services-header{max-width:580px;margin-bottom:60px}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
+
+.service-card{background:var(--white);border:1px solid var(--border-soft);border-radius:var(--radius-lg);padding:36px 32px;transition:var(--transition);position:relative;overflow:hidden;cursor:default}
+.service-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+
+/* Color themes per card */
+.sc-cyan{border-top:3px solid var(--cyan)}
+.sc-cyan .service-icon{background:var(--cyan-bg);border-color:var(--cyan-border)}
+.sc-cyan .service-icon svg{stroke:var(--cyan-dark)}
+.sc-cyan:hover{box-shadow:0 12px 40px rgba(0,200,180,0.14)}
+
+.sc-purple{border-top:3px solid var(--purple)}
+.sc-purple .service-icon{background:var(--purple-bg);border-color:var(--purple-border)}
+.sc-purple .service-icon svg{stroke:var(--purple)}
+.sc-purple:hover{box-shadow:0 12px 40px rgba(108,71,255,0.14)}
+
+.sc-magenta{border-top:3px solid var(--magenta)}
+.sc-magenta .service-icon{background:var(--magenta-bg);border-color:var(--magenta-border)}
+.sc-magenta .service-icon svg{stroke:var(--magenta)}
+.sc-magenta:hover{box-shadow:0 12px 40px rgba(192,38,211,0.12)}
+
+.sc-orange{border-top:3px solid var(--orange)}
+.sc-orange .service-icon{background:var(--orange-bg);border-color:var(--orange-border)}
+.sc-orange .service-icon svg{stroke:var(--orange)}
+.sc-orange:hover{box-shadow:0 12px 40px rgba(249,115,22,0.12)}
+
+.sc-blue{border-top:3px solid var(--blue)}
+.sc-blue .service-icon{background:var(--blue-bg);border-color:var(--blue-border)}
+.sc-blue .service-icon svg{stroke:var(--blue)}
+.sc-blue:hover{box-shadow:0 12px 40px rgba(37,99,235,0.12)}
+
+.sc-green{border-top:3px solid var(--green)}
+.sc-green .service-icon{background:var(--green-bg);border-color:var(--green-border)}
+.sc-green .service-icon svg{stroke:var(--green)}
+.sc-green:hover{box-shadow:0 12px 40px rgba(22,163,74,0.12)}
+
+.service-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:22px;border:1px solid;transition:var(--transition)}
+.service-icon svg{width:22px;height:22px;transition:var(--transition)}
+.service-name{font-family:'Plus Jakarta Sans',sans-serif;font-size:17px;font-weight:600;color:var(--ink);margin-bottom:10px}
+.service-desc{font-size:14px;color:var(--ink-3);line-height:1.65}
+
+/* WHY US */
+.why{background:var(--white)}
+.why-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.why-points{margin-top:40px;display:flex;flex-direction:column;gap:0}
+.why-point{display:flex;gap:20px;align-items:flex-start;padding:24px 0;border-bottom:1px solid var(--border-soft)}
+.why-point:last-child{border-bottom:none}
+.why-icon-wrap{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.why-icon-wrap svg{width:18px;height:18px}
+.wi-cyan{background:var(--cyan-bg)} .wi-cyan svg{stroke:var(--cyan-dark)}
+.wi-purple{background:var(--purple-bg)} .wi-purple svg{stroke:var(--purple)}
+.wi-orange{background:var(--orange-bg)} .wi-orange svg{stroke:var(--orange)}
+.wi-green{background:var(--green-bg)} .wi-green svg{stroke:var(--green)}
+.why-point-body h4{font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.why-point-body p{font-size:13.5px;color:var(--ink-3);line-height:1.6}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.stat-card{border-radius:var(--radius-lg);padding:32px 28px;position:relative;overflow:hidden;transition:var(--transition);border:1px solid transparent}
+.stat-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.stat-card.s-cyan{background:var(--cyan-bg);border-color:var(--cyan-border)}
+.stat-card.s-purple{background:var(--purple-bg);border-color:var(--purple-border)}
+.stat-card.s-magenta{background:var(--magenta-bg);border-color:var(--magenta-border)}
+.stat-card.s-dark{background:var(--ink);border-color:var(--ink)}
+.stat-card.s-dark .stat-val,.stat-card.s-dark .stat-label{color:var(--white)}
+.stat-card.s-dark .stat-suffix{color:var(--cyan)}
+.stat-card.s-dark .stat-label{color:rgba(255,255,255,0.5)}
+.stat-val{font-family:'Plus Jakarta Sans',sans-serif;font-size:48px;font-weight:800;letter-spacing:-0.04em;line-height:1}
+.s-cyan .stat-val{color:var(--cyan-dark)}
+.s-cyan .stat-suffix{color:var(--cyan-dark)}
+.s-cyan .stat-label{color:var(--cyan-dark);opacity:0.7}
+.s-purple .stat-val{color:var(--purple-dark)}
+.s-purple .stat-suffix{color:var(--purple)}
+.s-purple .stat-label{color:var(--purple-dark);opacity:0.7}
+.s-magenta .stat-val{color:var(--magenta)}
+.s-magenta .stat-suffix{color:var(--magenta)}
+.s-magenta .stat-label{color:var(--magenta);opacity:0.7}
+.stat-suffix{font-family:'Plus Jakarta Sans',sans-serif;font-size:28px;font-weight:700}
+.stat-label{font-size:13px;margin-top:8px;font-weight:400}
+.stat-card.wide{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:28px 32px;background:var(--ink);border-color:var(--ink)}
+.stat-card.wide .stat-label-wide{font-size:13px;font-weight:500;color:rgba(255,255,255,0.7)}
+.stat-card.wide .stat-val-wide{font-family:'Plus Jakarta Sans',sans-serif;font-size:22px;font-weight:700;color:var(--white);margin-top:4px}
+.progress-bar-track{height:5px;background:rgba(255,255,255,0.12);border-radius:3px;flex:1;overflow:hidden}
+.progress-bar-fill{height:100%;background:linear-gradient(90deg,var(--cyan),var(--purple));border-radius:3px;transition:width 1.5s cubic-bezier(0.4,0,0.2,1)}
+
+/* PORTFOLIO */
+.portfolio{background:var(--off)}
+.portfolio-header{margin-bottom:60px}
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:24px}
+.project-card{background:var(--white);border:1px solid var(--border-soft);border-radius:var(--radius-xl);overflow:hidden;transition:var(--transition);display:flex;flex-direction:column}
+.project-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-4px)}
+.project-preview{height:220px;background:var(--surface);position:relative;overflow:hidden;flex-shrink:0}
+.project-preview iframe{width:200%;height:200%;transform:scale(0.5);transform-origin:0 0;pointer-events:none;border:none}
+.project-preview-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(10,10,14,0.4))}
+.project-cat{position:absolute;top:16px;left:16px;padding:4px 12px;border-radius:100px;font-size:11px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase}
+.cat-blue{background:var(--blue-bg);color:var(--blue);border:1px solid var(--blue-border)}
+.cat-cyan{background:var(--cyan-bg);color:var(--cyan-dark);border:1px solid var(--cyan-border)}
+.cat-magenta{background:var(--magenta-bg);color:var(--magenta);border:1px solid var(--magenta-border)}
+.project-body{padding:28px 28px 24px;flex:1;display:flex;flex-direction:column}
+.project-name{font-family:'Plus Jakarta Sans',sans-serif;font-size:20px;font-weight:700;color:var(--ink);margin-bottom:10px;letter-spacing:-0.01em}
+.project-desc{font-size:14px;color:var(--ink-3);line-height:1.65;flex:1;margin-bottom:24px}
+.project-actions{display:flex;gap:10px}
+.btn-sm-dark{padding:9px 20px;border-radius:100px;font-size:13px;font-weight:600;background:linear-gradient(135deg,var(--purple),var(--cyan-dark));color:var(--white);transition:var(--transition);cursor:pointer;display:inline-flex;align-items:center;gap:6px;box-shadow:0 2px 10px rgba(108,71,255,0.2)}
+.btn-sm-dark:hover{opacity:0.88;transform:translateY(-1px);box-shadow:0 6px 20px rgba(108,71,255,0.3)}
+
+/* TECH STACK */
+.tech{background:var(--white);padding:80px 6vw}
+.tech-header{text-align:center;margin-bottom:56px}
+.tech-grid{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:900px;margin:0 auto}
+.tech-pill{display:inline-flex;align-items:center;gap:9px;padding:9px 18px;border-radius:100px;font-size:13.5px;font-weight:500;transition:var(--transition);cursor:default;border:1px solid}
+.tp-cyan{background:var(--cyan-bg);border-color:var(--cyan-border);color:var(--cyan-dark)}
+.tp-purple{background:var(--purple-bg);border-color:var(--purple-border);color:var(--purple-dark)}
+.tp-blue{background:var(--blue-bg);border-color:var(--blue-border);color:var(--blue)}
+.tp-orange{background:var(--orange-bg);border-color:var(--orange-border);color:var(--orange)}
+.tp-green{background:var(--green-bg);border-color:var(--green-border);color:var(--green)}
+.tp-magenta{background:var(--magenta-bg);border-color:var(--magenta-border);color:var(--magenta)}
+.tp-gray{background:var(--off);border-color:var(--border);color:var(--ink-2)}
+.tech-pill:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.tech-dot{width:7px;height:7px;border-radius:50%;background:currentColor;flex-shrink:0;opacity:0.7}
+
+/* CTA */
+.cta-section{background:var(--ink);padding:120px 6vw;text-align:center;position:relative;overflow:hidden}
+.cta-glow-1{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(0,200,180,0.1),transparent 70%);top:50%;left:30%;transform:translate(-50%,-50%);pointer-events:none}
+.cta-glow-2{position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(108,71,255,0.12),transparent 70%);top:50%;right:10%;transform:translateY(-50%);pointer-events:none}
+.cta-inner{position:relative;z-index:1;max-width:700px;margin:0 auto}
+.cta-label{font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--cyan);margin-bottom:28px;display:block}
+.cta-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:clamp(36px,5vw,64px);font-weight:800;color:var(--white);letter-spacing:-0.03em;line-height:1.1;margin-bottom:24px}
+.cta-sub{font-size:17px;color:rgba(255,255,255,0.5);font-weight:300;line-height:1.7;margin-bottom:48px}
+.cta-availability{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,0.35);margin-top:28px;letter-spacing:0.04em}
+.avail-dot{width:6px;height:6px;border-radius:50%;background:#28c840;box-shadow:0 0 8px rgba(40,200,64,0.5)}
+.btn-cta{background:linear-gradient(135deg,var(--cyan),var(--purple));color:var(--white);padding:17px 40px;border-radius:100px;font-size:15px;font-weight:700;letter-spacing:0.01em;transition:var(--transition);display:inline-flex;align-items:center;gap:10px;cursor:pointer;box-shadow:0 8px 32px rgba(108,71,255,0.35)}
+.btn-cta:hover{opacity:0.9;transform:translateY(-2px);box-shadow:0 16px 48px rgba(108,71,255,0.4)}
+
+/* FOOTER */
+footer{background:var(--ink);border-top:1px solid rgba(255,255,255,0.06);padding:48px 6vw 36px}
+.footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-brand img{height:32px;width:auto;filter:brightness(0) invert(1);opacity:0.8;margin-bottom:16px}
+.footer-brand p{font-size:13px;color:rgba(255,255,255,0.38);line-height:1.65;max-width:240px}
+.footer-col h5{font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:600;color:rgba(255,255,255,0.5);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:18px}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:11px}
+.footer-col ul li a{font-size:13px;color:rgba(255,255,255,0.38);transition:color 0.2s}
+.footer-col ul li a:hover{color:var(--cyan)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,0.06);padding-top:28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-copy{font-size:12px;color:rgba(255,255,255,0.25);letter-spacing:0.02em}
+.footer-socials{display:flex;gap:16px}
+.social-link{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;transition:var(--transition)}
+.social-link:hover{border-color:var(--cyan);background:rgba(0,200,180,0.08)}
+.social-link svg{width:15px;height:15px;stroke:rgba(255,255,255,0.5);fill:none}
+.social-link:hover svg{stroke:var(--cyan)}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.65s cubic-bezier(0.4,0,0.2,1),transform 0.65s cubic-bezier(0.4,0,0.2,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:0.1s}
+.reveal-delay-2{transition-delay:0.2s}
+.reveal-delay-3{transition-delay:0.3s}
+.reveal-delay-4{transition-delay:0.4s}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+.why-inner{grid-template-columns:1fr;gap:48px}
+.footer-inner{grid-template-columns:1fr 1fr;gap:36px}
+.nav-links{display:none}
+}
+@media(max-width:600px){
+.projects-grid{grid-template-columns:1fr}
+.footer-inner{grid-template-columns:1fr}
+.stats-grid{grid-template-columns:1fr}
+.stat-card.wide{flex-direction:column;align-items:flex-start}
+section{padding:72px 5vw}
+}
+.nav-ham{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.nav-ham span{display:block;width:22px;height:1.5px;background:var(--ink);border-radius:2px;transition:var(--transition)}
+@media(max-width:900px){.nav-ham{display:flex}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <img src="/mnt/user-data/uploads/imagotipo_horizontal_sin_fondo.png" alt="Aurora Claud" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+    <span style="display:none;font-family:'Plus Jakarta Sans',sans-serif;font-size:18px;font-weight:700;letter-spacing:-0.02em">Aurora Claud</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#proyectos">Proyectos</a></li>
+    <li><a href="#tecnologias">Stack</a></li>
+    <li><a href="#contacto" class="nav-cta">Iniciar proyecto</a></li>
+  </ul>
+  <div class="nav-ham" onclick="toggleMobileMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="hero-blob blob-1"></div>
+    <div class="hero-blob blob-2"></div>
+    <div class="hero-blob blob-3"></div>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      Desarrollo de software premium
+    </div>
+    <h1 class="hero-title">
+      Software que hace<br>crecer <em>negocios reales</em>
+    </h1>
+    <p class="hero-sub">
+      Diseñamos y construimos productos digitales de alto rendimiento — webs, apps, sistemas y automatizaciones que convierten ideas en resultados medibles.
+    </p>
+    <div class="hero-actions">
+      <a href="#contacto" class="btn-primary">
+        Iniciar un proyecto
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#proyectos" class="btn-outline">
+        Ver portafolio
+      </a>
+    </div>
+    <div class="hero-visual">
+      <div class="code-window">
+        <div class="code-bar">
+          <div class="dot d-red"></div>
+          <div class="dot d-yellow"></div>
+          <div class="dot d-green"></div>
+          <span class="code-title">aurora-claud / deploy</span>
+        </div>
+        <div class="code-body">
+          <div><span class="c-comment">// Aurora Claud — sistema en producción</span></div>
+          <div><span class="c-key">const</span> <span class="c-base">aurora</span> = <span class="c-fn">createApp</span>({</div>
+          <div>&nbsp;&nbsp;<span class="c-key">performance</span>: <span class="c-str">"99.98% uptime"</span>,</div>
+          <div>&nbsp;&nbsp;<span class="c-key">stack</span>: [<span class="c-str">"Next.js"</span>, <span class="c-str">"Node"</span>, <span class="c-str">"PostgreSQL"</span>, <span class="c-str">"Docker"</span>],</div>
+          <div>&nbsp;&nbsp;<span class="c-key">delivery</span>: <span class="c-num">true</span>,&nbsp;<span class="c-key">scalable</span>: <span class="c-num">true</span></div>
+          <div>});</div>
+          <div>&nbsp;</div>
+          <div><span class="c-fn">aurora</span>.<span class="c-key">deploy</span>() <span class="c-comment">// ✓ Desplegado exitosamente</span></div>
+        </div>
+        <div class="metrics-row">
+          <div class="metric-box">
+            <div class="metric-val">98<span>%</span></div>
+            <div class="metric-label">Lighthouse Score</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-val">0.8<span>s</span></div>
+            <div class="metric-label">Carga promedio</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-val">40<span>+</span></div>
+            <div class="metric-label">Proyectos entregados</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="servicios">
+  <div class="services-header reveal">
+    <span class="section-label">Servicios</span>
+    <h2 class="section-title">Todo lo que tu empresa digital necesita</h2>
+    <div class="divider"></div>
+    <p class="section-sub">Soluciones de software a medida, diseñadas con criterio técnico y atención al detalle que marca la diferencia.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card sc-cyan reveal">
+      <div class="service-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M7 8h10M7 12h6M7 16h8"/></svg></div>
+      <h3 class="service-name">Desarrollo Web</h3>
+      <p class="service-desc">Sitios y plataformas de alto rendimiento con arquitectura moderna, optimizados para velocidad y conversión.</p>
+    </div>
+    <div class="service-card sc-purple reveal reveal-delay-1">
+      <div class="service-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="18" r="1"/></svg></div>
+      <h3 class="service-name">Apps Android</h3>
+      <p class="service-desc">Aplicaciones móviles nativas e híbridas con interfaces fluidas y experiencias de usuario excepcionales.</p>
+    </div>
+    <div class="service-card sc-blue reveal reveal-delay-2">
+      <div class="service-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+      <h3 class="service-name">Software Empresarial</h3>
+      <p class="service-desc">Sistemas personalizados que automatizan operaciones internas y escalan con el crecimiento de tu empresa.</p>
+    </div>
+    <div class="service-card sc-orange reveal">
+      <div class="service-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+      <h3 class="service-name">Automatizaciones</h3>
+      <p class="service-desc">Flujos de trabajo inteligentes que eliminan tareas manuales, reducen errores y liberan tiempo productivo.</p>
+    </div>
+    <div class="service-card sc-green reveal reveal-delay-1">
+      <div class="service-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg></div>
+      <h3 class="service-name">APIs e Integraciones</h3>
+      <p class="service-desc">Conectamos plataformas, servicios y bases de datos con APIs robustas y arquitecturas orientadas a microservicios.</p>
+    </div>
+    <div class="service-card sc-magenta reveal reveal-delay-2">
+      <div class="service-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+      <h3 class="service-name">Dashboards</h3>
+      <p class="service-desc">Paneles de control en tiempo real con visualización de datos clara, accionable y visualmente impecable.</p>
+    </div>
+    <div class="service-card sc-purple reveal">
+      <div class="service-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div>
+      <h3 class="service-name">UI/UX Design</h3>
+      <p class="service-desc">Diseño estratégico de interfaces que guían al usuario, aumentan retención y comunican valor desde el primer clic.</p>
+    </div>
+    <div class="service-card sc-cyan reveal reveal-delay-1">
+      <div class="service-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+      <h3 class="service-name">Hosting y Despliegue</h3>
+      <p class="service-desc">Infraestructura confiable en la nube con CI/CD, monitoreo constante y respaldo automatizado.</p>
+    </div>
+    <div class="service-card sc-orange reveal reveal-delay-2">
+      <div class="service-icon"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>
+      <h3 class="service-name">SEO Técnico</h3>
+      <p class="service-desc">Optimización profunda de rendimiento y visibilidad orgánica: Core Web Vitals, estructura semántica y velocidad real.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why" id="nosotros">
+  <div class="why-inner">
+    <div class="why-left">
+      <div class="reveal">
+        <span class="section-label">Por qué Aurora Claud</span>
+        <h2 class="section-title">Construimos para escalar,<br>no solo para entregar</h2>
+        <div class="divider"></div>
+        <p class="section-sub">Cada proyecto es una arquitectura pensada para el largo plazo — código limpio, sistemas robustos y diseño que comunica autoridad.</p>
+      </div>
+      <div class="why-points">
+        <div class="why-point reveal reveal-delay-1">
+          <div class="why-icon-wrap wi-cyan"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+          <div class="why-point-body">
+            <h4>Arquitectura moderna</h4>
+            <p>Usamos el stack más actualizado del mercado con patrones de diseño que facilitan el mantenimiento y la expansión futura.</p>
+          </div>
+        </div>
+        <div class="why-point reveal reveal-delay-2">
+          <div class="why-icon-wrap wi-orange"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+          <div class="why-point-body">
+            <h4>Velocidad sin concesiones</h4>
+            <p>Cada milisegundo importa. Optimizamos a nivel de código, servidor y red para experiencias ultrarrápidas en cualquier dispositivo.</p>
+          </div>
+        </div>
+        <div class="why-point reveal reveal-delay-3">
+          <div class="why-icon-wrap wi-purple"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div>
+          <div class="why-point-body">
+            <h4>Automatización inteligente</h4>
+            <p>Integramos IA y automatizaciones que convierten procesos manuales en flujos eficientes y sin errores.</p>
+          </div>
+        </div>
+        <div class="why-point reveal reveal-delay-4">
+          <div class="why-icon-wrap wi-green"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+          <div class="why-point-body">
+            <h4>Soporte real y transparente</h4>
+            <p>Comunicación directa, plazos cumplidos y seguimiento post-entrega. Tu proyecto no termina en el lanzamiento.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="why-right reveal">
+      <div class="stats-grid">
+        <div class="stat-card s-dark">
+          <div><span class="stat-val">40</span><span class="stat-suffix">+</span></div>
+          <div class="stat-label">Proyectos entregados</div>
+        </div>
+        <div class="stat-card s-cyan">
+          <div><span class="stat-val">99</span><span class="stat-suffix">%</span></div>
+          <div class="stat-label">Satisfacción del cliente</div>
+        </div>
+        <div class="stat-card s-purple">
+          <div><span class="stat-val">&lt;1</span><span class="stat-suffix">s</span></div>
+          <div class="stat-label">Tiempo de carga</div>
+        </div>
+        <div class="stat-card s-magenta">
+          <div><span class="stat-val">24</span><span class="stat-suffix">h</span></div>
+          <div class="stat-label">Tiempo de respuesta</div>
+        </div>
+        <div class="stat-card wide">
+          <div>
+            <div class="stat-label-wide">Uptime de sistemas</div>
+            <div class="stat-val-wide">99.98%</div>
+          </div>
+          <div class="progress-bar-track" style="flex:1">
+            <div class="progress-bar-fill" id="uptime-bar" style="width:0%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="portfolio" id="proyectos">
+  <div class="portfolio-header">
+    <div class="reveal">
+      <span class="section-label">Portafolio</span>
+      <h2 class="section-title">Últimos desarrollos</h2>
+      <div class="divider"></div>
+      <p class="section-sub">Proyectos reales, entregados a clientes reales. Cada uno construido con atención al detalle y enfoque en resultados.</p>
+    </div>
+  </div>
+  <div class="projects-grid">
+
+    <!-- Project 1 -->
+    <div class="project-card reveal">
+      <div class="project-preview" style="background:#0a0e1a">
+        <iframe src="https://www.mananrentcar.com/" loading="lazy" title="Manan Rent Car" scrolling="no"></iframe>
+        <div class="project-preview-overlay"></div>
+        <span class="project-cat cat-blue">Alquiler de Vehículos</span>
+      </div>
+      <div class="project-body">
+        <h3 class="project-name">Manan Rent Car</h3>
+        <p class="project-desc">Plataforma web premium para alquiler de vehículos con catálogo en tiempo real, sistema de reservas y integración WhatsApp. Diseño orientado a conversión con foco en experiencia móvil.</p>
+        <div class="project-actions">
+          <a href="https://www.mananrentcar.com/" target="_blank" class="btn-sm-dark">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Visitar sitio
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 2 -->
+    <div class="project-card reveal reveal-delay-1">
+      <div class="project-preview" style="background:#05101e">
+        <iframe src="https://enfoquemundial.com/" loading="lazy" title="Enfoque Mundial" scrolling="no"></iframe>
+        <div class="project-preview-overlay"></div>
+        <span class="project-cat cat-cyan">Periodismo Digital</span>
+      </div>
+      <div class="project-body">
+        <h3 class="project-name">Enfoque Mundial</h3>
+        <p class="project-desc">Portal de noticias internacionales con arquitectura editorial optimizada para SEO, carga rápida y alta legibilidad. Diseño limpio que prioriza el contenido y la credibilidad.</p>
+        <div class="project-actions">
+          <a href="https://enfoquemundial.com/" target="_blank" class="btn-sm-dark">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Visitar sitio
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project 3 -->
+    <div class="project-card reveal reveal-delay-2">
+      <div class="project-preview" style="background:#1a0a0a">
+        <iframe src="https://aurorabakery.github.io/Aurorabakery/" loading="lazy" title="Aurora Bakery" scrolling="no"></iframe>
+        <div class="project-preview-overlay"></div>
+        <span class="project-cat cat-magenta">Gastronomía & E-commerce</span>
+      </div>
+      <div class="project-body">
+        <h3 class="project-name">Aurora Bakery</h3>
+        <p class="project-desc">Sitio web artesanal para panadería premium con menú interactivo, galería de productos y canal de pedidos. Estética cálida con enfoque en la identidad de marca y conversión local.</p>
+        <div class="project-actions">
+          <a href="https://aurorabakery.github.io/Aurorabakery/" target="_blank" class="btn-sm-dark">
+            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Visitar sitio
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<section class="tech" id="tecnologias">
+  <div class="tech-header reveal">
+    <span class="section-label">Stack tecnológico</span>
+    <h2 class="section-title">Herramientas de primer nivel</h2>
+    <p style="font-size:16px;color:var(--ink-3);font-weight:300;max-width:480px;margin:16px auto 0">Trabajamos con tecnologías modernas, probadas y escalables que garantizan rendimiento a largo plazo.</p>
+  </div>
+  <div class="tech-grid reveal reveal-delay-1">
+    <div class="tech-pill tp-cyan"><span class="tech-dot"></span>React</div>
+    <div class="tech-pill tp-purple"><span class="tech-dot"></span>Next.js</div>
+    <div class="tech-pill tp-green"><span class="tech-dot"></span>Node.js</div>
+    <div class="tech-pill tp-blue"><span class="tech-dot"></span>TypeScript</div>
+    <div class="tech-pill tp-orange"><span class="tech-dot"></span>PostgreSQL</div>
+    <div class="tech-pill tp-magenta"><span class="tech-dot"></span>Firebase</div>
+    <div class="tech-pill tp-cyan"><span class="tech-dot"></span>Docker</div>
+    <div class="tech-pill tp-orange"><span class="tech-dot"></span>AWS</div>
+    <div class="tech-pill tp-gray"><span class="tech-dot"></span>Cloudflare</div>
+    <div class="tech-pill tp-blue"><span class="tech-dot"></span>Tailwind CSS</div>
+    <div class="tech-pill tp-green"><span class="tech-dot"></span>REST APIs</div>
+    <div class="tech-pill tp-purple"><span class="tech-dot"></span>GraphQL</div>
+    <div class="tech-pill tp-magenta"><span class="tech-dot"></span>IA & Automatización</div>
+    <div class="tech-pill tp-gray"><span class="tech-dot"></span>CI/CD</div>
+    <div class="tech-pill tp-cyan"><span class="tech-dot"></span>Vercel</div>
+    <div class="tech-pill tp-blue"><span class="tech-dot"></span>GitHub Actions</div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="contacto">
+  <div class="cta-glow-1"></div>
+  <div class="cta-glow-2"></div>
+  <div class="cta-inner">
+    <span class="cta-label">¿Tienes un proyecto?</span>
+    <h2 class="cta-title">Tu próximo producto digital empieza aquí</h2>
+    <p class="cta-sub">Trabajamos con un número selecto de clientes cada mes. Si tienes una idea seria, es el momento de hablar.</p>
+    <a href="mailto:contacto@auroraclaud.com" class="btn-cta">
+      Escribirnos ahora
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+    <div class="cta-availability">
+      <span class="avail-dot"></span>
+      Disponibles para nuevos proyectos este mes
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="/mnt/user-data/uploads/imagotipo_horizontal_sin_fondo.png" alt="Aurora Claud" onerror="this.style.display='none'">
+      <p>Desarrollamos software serio para empresas que quieren crecer. Código limpio, diseño premium, resultados reales.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Servicios</h5>
+      <ul>
+        <li><a href="#servicios">Desarrollo Web</a></li>
+        <li><a href="#servicios">Apps Android</a></li>
+        <li><a href="#servicios">Automatizaciones</a></li>
+        <li><a href="#servicios">APIs</a></li>
+        <li><a href="#servicios">UI/UX Design</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Empresa</h5>
+      <ul>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#proyectos">Proyectos</a></li>
+        <li><a href="#tecnologias">Stack</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Contacto</h5>
+      <ul>
+        <li><a href="mailto:contacto@auroraclaud.com">contacto@auroraclaud.com</a></li>
+        <li><a href="https://wa.me/18099999999">WhatsApp</a></li>
+        <li><a href="#">LinkedIn</a></li>
+        <li><a href="#">Instagram</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2025 Aurora Claud. Todos los derechos reservados.</span>
+    <div class="footer-socials">
+      <!-- LinkedIn -->
+      <a href="#" class="social-link" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      </a>
+      <!-- Instagram -->
+      <a href="#" class="social-link" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </a>
+      <!-- GitHub -->
+      <a href="#" class="social-link" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      if (e.target.closest('.why-right')) {
+        setTimeout(() => {
+          const bar = document.getElementById('uptime-bar');
+          if (bar) bar.style.width = '99.98%';
+        }, 400);
+      }
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Mobile menu
+function toggleMobileMenu() {
+  const links = document.querySelector('.nav-links');
+  if (links) {
+    if (links.style.display === 'flex') {
+      links.style.display = 'none';
+    } else {
+      links.style.cssText = 'display:flex;flex-direction:column;position:fixed;top:68px;left:0;right:0;background:rgba(255,255,255,0.98);backdrop-filter:blur(16px);padding:24px 6vw 32px;gap:20px;border-bottom:1px solid var(--border-soft);z-index:998';
+    }
+  }
+}
+
+// Nav shadow on scroll
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('nav');
+  if (window.scrollY > 20) {
+    nav.style.boxShadow = '0 2px 20px rgba(0,0,0,0.06)';
+  } else {
+    nav.style.boxShadow = 'none';
+  }
+});
+
+// Smooth link close
+document.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', () => {
+    const links = document.querySelector('.nav-links');
+    if (links && window.innerWidth < 900) {
+      links.style.display = 'none';
+    }
+  });
+});
+</script>
+</body>
+</html>
