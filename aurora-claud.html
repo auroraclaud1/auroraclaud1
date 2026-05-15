@@ -51,8 +51,8 @@
 --shadow-lg:0 12px 40px rgba(0,0,0,0.10),0 2px 8px rgba(0,0,0,0.05);
 --transition:all 0.28s cubic-bezier(0.4,0,0.2,1);
 }
-html{scroll-behavior:smooth;font-size:16px}
-body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--ink);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+html{scroll-behavior:smooth;font-size:16px;overflow-x:hidden}
+body{font-family:'DM Sans',sans-serif;background:var(--white);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 img{max-width:100%;display:block}
 
@@ -329,7 +329,7 @@ section{padding:72px 5vw}
     <li><a href="#nosotros">Nosotros</a></li>
     <li><a href="#proyectos">Proyectos</a></li>
     <li><a href="#tecnologias">Stack</a></li>
-    <li><a href="#contacto" class="nav-cta">Iniciar proyecto</a></li>
+    <li><a href="#" class="nav-cta" onclick="openContactModal();return false;">Iniciar proyecto</a></li>
   </ul>
   <div class="nav-ham" onclick="toggleMobileMenu()">
     <span></span><span></span><span></span>
