@@ -242,6 +242,32 @@ footer{background:var(--ink);border-top:1px solid rgba(255,255,255,0.06);padding
 .social-link svg{width:15px;height:15px;stroke:rgba(255,255,255,0.5);fill:none}
 .social-link:hover svg{stroke:var(--cyan)}
 
+/* CONTACT MODAL */
+.modal-backdrop{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;pointer-events:none;transition:opacity 0.25s cubic-bezier(0.4,0,0.2,1)}
+.modal-backdrop.open{opacity:1;pointer-events:all}
+.modal-overlay{position:absolute;inset:0;background:rgba(12,12,14,0.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.modal-box{position:relative;z-index:1;background:var(--white);border-radius:28px;padding:48px 40px 40px;max-width:420px;width:100%;box-shadow:0 24px 80px rgba(0,0,0,0.18),0 0 0 1px rgba(0,0,0,0.04);transform:translateY(20px) scale(0.97);transition:transform 0.3s cubic-bezier(0.4,0,0.2,1)}
+.modal-backdrop.open .modal-box{transform:translateY(0) scale(1)}
+.modal-close{position:absolute;top:18px;right:18px;width:32px;height:32px;border-radius:50%;border:1px solid var(--border);background:var(--off);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:var(--transition);color:var(--ink-3)}
+.modal-close:hover{background:var(--surface);color:var(--ink)}
+.modal-close svg{width:14px;height:14px;stroke:currentColor;fill:none}
+.modal-label{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--purple);margin-bottom:12px;display:block}
+.modal-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:24px;font-weight:700;color:var(--ink);letter-spacing:-0.02em;margin-bottom:8px}
+.modal-sub{font-size:14px;color:var(--ink-3);line-height:1.6;margin-bottom:32px}
+.modal-options{display:flex;flex-direction:column;gap:14px}
+.modal-option{display:flex;align-items:center;gap:18px;padding:20px 22px;border-radius:18px;border:1.5px solid var(--border-soft);background:var(--off);cursor:pointer;transition:var(--transition);text-decoration:none;color:inherit}
+.modal-option:hover{transform:translateY(-2px);border-color:transparent}
+.modal-option.opt-email:hover{background:var(--blue-bg);border-color:var(--blue-border);box-shadow:0 8px 28px rgba(37,99,235,0.12)}
+.modal-option.opt-whatsapp:hover{background:var(--green-bg);border-color:var(--green-border);box-shadow:0 8px 28px rgba(22,163,74,0.14)}
+.opt-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:var(--transition)}
+.opt-email .opt-icon{background:var(--blue-bg);border:1px solid var(--blue-border)}
+.opt-whatsapp .opt-icon{background:var(--green-bg);border:1px solid var(--green-border)}
+.modal-option:hover .opt-icon{transform:scale(1.05)}
+.opt-title{font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;font-weight:600;color:var(--ink);margin-bottom:2px}
+.opt-desc{font-size:12.5px;color:var(--ink-3)}
+.opt-arrow{margin-left:auto;color:var(--ink-4);transition:var(--transition)}
+.modal-option:hover .opt-arrow{color:var(--ink-2);transform:translateX(3px)}
+
 /* ANIMATIONS */
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.65s cubic-bezier(0.4,0,0.2,1),transform 0.65s cubic-bezier(0.4,0,0.2,1)}

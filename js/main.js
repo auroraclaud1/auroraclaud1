@@ -1,3 +1,19 @@
+// Contact modal
+function openContactModal() {
+  document.getElementById('contactModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeContactModal() {
+  document.getElementById('contactModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function handleBackdropClick(e) {
+  if (e.target === document.getElementById('contactModal') || e.target.classList.contains('modal-overlay')) {
+    closeContactModal();
+  }
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeContactModal(); });
+
 // Scroll reveal
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => {
