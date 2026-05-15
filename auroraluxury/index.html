@@ -118,7 +118,6 @@
         @media (max-width: 768px) {
             .unified-bg { background-attachment: scroll; }
             .floating-tooltip { display: none !important; }
-            .modal-content-anim { border-radius: 16px 16px 0 0; }
         }
     </style>
 </head>
@@ -242,55 +241,97 @@
         <p class="text-[10px] uppercase font-bold tracking-widest text-zinc-300">Piscina Infinita y Área de BBQ</p>
     </div>
 
-    <div x-show="modalOpen" x-cloak class="fixed inset-0 z-[100] flex items-end md:items-center justify-center p-0 md:p-4 bg-black/60 backdrop-blur-md" 
-         x-transition:enter="transition opacity duration-700">
-        
-        <div class="bg-white w-full max-w-5xl flex flex-col md:flex-row shadow-2xl relative modal-content-anim max-h-[90vh] overflow-y-auto md:overflow-visible" @click.away="closeAll()">
-            <button @click="closeAll()" class="absolute top-3 right-4 text-3xl text-black z-50 hover:text-[#c5a059] transition-colors leading-none">&times;</button>
-            <div class="md:w-2/3 bg-zinc-200 overflow-hidden">
-                <img :src="modalType === 'apt' ? selectedApt?.id + '.jpg' : 'terraza.jpg'" 
-                     class="w-full object-cover h-48 md:h-full md:min-h-[450px]" 
-                     @error="tryNextExtension($event.target, modalType === 'apt' ? selectedApt?.id : 'terraza')">
+    <!-- MODAL -->
+    <div x-show="modalOpen" x-cloak class="fixed inset-0 z-[100] flex items-end md:items-center justify-center md:p-4 bg-black/60 backdrop-blur-md" x-transition:enter="transition opacity duration-700">
+        <div class="bg-white w-full md:max-w-5xl md:flex md:flex-row shadow-2xl relative modal-content-anim rounded-t-2xl md:rounded-none" @click.away="closeAll()">
+
+            <button @click="closeAll()" class="absolute top-3 right-4 text-2xl text-black z-50 hover:text-[#c5a059] transition-colors leading-none">&times;</button>
+
+            <div class="md:w-2/3 bg-zinc-200 overflow-hidden rounded-t-2xl md:rounded-none">
+                <img :src="modalType === 'apt' ? selectedApt?.id + '.jpg' : 'terraza.jpg'" class="w-full object-cover h-36 md:h-full md:min-h-[450px]" @error="tryNextExtension($event.target, modalType === 'apt' ? selectedApt?.id : 'terraza')">
             </div>
-            <div class="md:w-1/3 p-6 md:p-12 flex flex-col justify-center bg-white border-t md:border-t-0 md:border-l border-zinc-100 text-black">
-                <h2 x-show="modalType === 'apt'" class="text-3xl md:text-5xl font-serif italic mb-3 md:mb-4" x-text="'Unidad ' + selectedApt?.id"></h2>
-                <h2 x-show="modalType === 'terrace'" class="text-3xl md:text-5xl font-serif italic mb-3 md:mb-4">Rooftop Lounge</h2>
-                
-                <div class="mb-4 md:mb-6">
+
+            <div class="md:w-1/3 md:p-12 md:flex md:flex-col md:justify-center bg-white md:border-l border-zinc-100 text-black">
+
+                <!-- MOVIL: cabecera compacta -->
+                <div class="flex md:hidden items-center gap-3 px-4 pt-3 pb-2">
+                    <div class="flex-1 min-w-0">
+                        <h2 x-show="modalType === 'apt'" class="text-lg font-serif italic leading-tight" x-text="'Unidad ' + selectedApt?.id"></h2>
+                        <h2 x-show="modalType === 'terrace'" class="text-lg font-serif italic leading-tight">Rooftop Lounge</h2>
+                        <template x-if="modalType === 'apt'">
+                            <p class="text-[#c5a059] text-base font-bold mt-0.5" x-text="formatPrice(selectedApt?.price)"></p>
+                        </template>
+                        <template x-if="modalType === 'terrace'">
+                            <p class="text-[#c5a059] text-sm font-bold mt-0.5">Piscina Infinita &amp; BBQ</p>
+                        </template>
+                    </div>
                     <template x-if="modalType === 'apt'">
-                        <div>
-                            <p class="text-[#c5a059] text-2xl md:text-3xl font-bold mb-1" x-text="formatPrice(selectedApt?.price)"></p>
-                            <span class="text-[9px] font-black px-2 py-1 bg-zinc-100 uppercase tracking-widest text-zinc-500" x-text="selectedApt?.status"></span>
-                        </div>
-                    </template>
-                    <template x-if="modalType === 'terrace'">
-                        <p class="text-[#c5a059] text-lg md:text-xl font-bold mb-1">Piscina Infinita y Área BBQ</p>
+                        <span class="text-[8px] font-black px-2 py-1 bg-zinc-100 uppercase tracking-widest text-zinc-500 shrink-0" x-text="selectedApt?.status"></span>
                     </template>
                 </div>
 
-                <div class="space-y-2 mb-6 md:mb-10 border-t border-zinc-100 pt-4 text-zinc-600 text-sm italic leading-relaxed">
+                <!-- MOVIL: detalles en fila -->
+                <div class="flex md:hidden px-4 py-2 border-t border-zinc-100 text-xs text-zinc-500 italic">
                     <template x-if="modalType === 'apt'">
-                        <div>
-                            <p>✦ <span x-text="selectedApt?.hab"></span> Habitaciones</p>
-                            <p>✦ <span x-text="selectedApt?.banos"></span> Baños</p>
-                            <p>✦ <span x-text="selectedApt?.extras"></span></p>
-                            <p class="font-bold text-black mt-4" x-text="selectedApt?.size + ' m²'"></p>
+                        <div class="flex gap-4">
+                            <span>&#10086; <span x-text="selectedApt?.hab"></span> hab.</span>
+                            <span>&#10086; <span x-text="selectedApt?.banos"></span> ba&ntilde;os</span>
+                            <span class="font-bold text-black" x-text="selectedApt?.size + ' m²'"></span>
                         </div>
                     </template>
                     <template x-if="modalType === 'terrace'">
-                        <div>
-                            <p>✦ Piscina climatizada con vistas a la ciudad</p>
-                            <p>✦ Zona de barbacoa de acero inoxidable</p>
-                            <p>✦ Sofás lounge y hoguera</p>
+                        <div class="flex gap-3 flex-wrap">
+                            <span>Piscina climatizada</span>
+                            <span>&middot; &Aacute;rea BBQ</span>
+                            <span>&middot; Lounge</span>
                         </div>
                     </template>
                 </div>
-                
-                <a :href="whatsappLink(selectedApt?.id)"
-                   target="_blank"
-                   class="bg-black text-white py-5 text-center text-[10px] font-black uppercase tracking-[0.2em] hover:bg-[#c5a059] transition-all italic">
-                    RESERVAR CITA
-                </a>
+
+                <!-- MOVIL: boton CTA -->
+                <div class="md:hidden px-4 pb-5 pt-2">
+                    <a :href="whatsappLink(selectedApt?.id)" target="_blank" class="block w-full bg-black text-white py-3 text-center text-[10px] font-black uppercase tracking-[0.2em] hover:bg-[#c5a059] transition-all italic rounded">
+                        RESERVAR CITA
+                    </a>
+                </div>
+
+                <!-- DESKTOP: layout completo -->
+                <div class="hidden md:block">
+                    <h2 x-show="modalType === 'apt'" class="text-5xl font-serif italic mb-4" x-text="'Unidad ' + selectedApt?.id"></h2>
+                    <h2 x-show="modalType === 'terrace'" class="text-5xl font-serif italic mb-4">Rooftop Lounge</h2>
+                    <div class="mb-6">
+                        <template x-if="modalType === 'apt'">
+                            <div>
+                                <p class="text-[#c5a059] text-3xl font-bold mb-1" x-text="formatPrice(selectedApt?.price)"></p>
+                                <span class="text-[9px] font-black px-2 py-1 bg-zinc-100 uppercase tracking-widest text-zinc-500" x-text="selectedApt?.status"></span>
+                            </div>
+                        </template>
+                        <template x-if="modalType === 'terrace'">
+                            <p class="text-[#c5a059] text-xl font-bold mb-1">Piscina Infinita y &Aacute;rea BBQ</p>
+                        </template>
+                    </div>
+                    <div class="space-y-3 mb-10 border-t border-zinc-100 pt-6 text-zinc-600 text-sm italic leading-relaxed">
+                        <template x-if="modalType === 'apt'">
+                            <div>
+                                <p>&#10086; <span x-text="selectedApt?.hab"></span> Habitaciones</p>
+                                <p>&#10086; <span x-text="selectedApt?.banos"></span> Ba&ntilde;os</p>
+                                <p>&#10086; <span x-text="selectedApt?.extras"></span></p>
+                                <p class="font-bold text-black mt-4" x-text="selectedApt?.size + ' m²'"></p>
+                            </div>
+                        </template>
+                        <template x-if="modalType === 'terrace'">
+                            <div>
+                                <p>&#10086; Piscina climatizada con vistas a la ciudad</p>
+                                <p>&#10086; Zona de barbacoa de acero inoxidable</p>
+                                <p>&#10086; Sof&aacute;s lounge y hoguera</p>
+                            </div>
+                        </template>
+                    </div>
+                    <a :href="whatsappLink(selectedApt?.id)" target="_blank" class="block bg-black text-white py-5 text-center text-[10px] font-black uppercase tracking-[0.2em] hover:bg-[#c5a059] transition-all italic">
+                        RESERVAR CITA
+                    </a>
+                </div>
+
             </div>
         </div>
     </div>
