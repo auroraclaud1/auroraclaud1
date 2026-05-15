@@ -1,5 +1,17 @@
 // Contact modal
-function openContactModal() {
+const _waDefault = 'Hola%20Aurora%20Claud%2C%20quiero%20hablar%20sobre%20un%20proyecto.';
+const _waFacturacion = 'Hola%20Aurora%20Claud%2C%20quiero%20cotizar%20el%20Sistema%20de%20Facturaci%C3%B3n%20e%20Inventariado.%20%C2%BFMe%20pueden%20dar%20informaci%C3%B3n%20sobre%20precios%20y%20funcionalidades%3F';
+const _emailDefault = 'mailto:info@auroraclaud.com';
+const _emailFacturacion = 'mailto:info@auroraclaud.com?subject=Cotizaci%C3%B3n%20Sistema%20de%20Facturaci%C3%B3n%20e%20Inventariado&body=Hola%20Aurora%20Claud%2C%20me%20interesa%20cotizar%20el%20Sistema%20de%20Facturaci%C3%B3n%20e%20Inventariado.%20%C2%BFPodr%C3%ADan%20darme%20m%C3%A1s%20informaci%C3%B3n%20sobre%20precios%20y%20c%C3%B3mo%20funciona%3F';
+
+function openContactModal(context) {
+  const isFacturacion = context === 'facturacion';
+  const waMsg = isFacturacion ? _waFacturacion : _waDefault;
+  document.querySelectorAll('.opt-whatsapp').forEach(link => {
+    link.href = link.href.split('?')[0] + '?text=' + waMsg;
+  });
+  const emailLink = document.querySelector('.opt-email');
+  if (emailLink) emailLink.href = isFacturacion ? _emailFacturacion : _emailDefault;
   document.getElementById('contactModal').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
