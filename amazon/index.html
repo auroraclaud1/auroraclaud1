@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DealHunter Pro — Ofertas Reales de Amazon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-top">
+    <div class="logo" onclick="closeModal()">Deal<span>Hunter</span> Pro</div>
+    <div class="search-wrap">
+      <input type="text" id="searchInput" placeholder="Buscar productos en oferta...">
+      <button>🔍</button>
+    </div>
+    <div class="hdr-pills">
+      <div class="pill">🔥 <strong id="dealCount">0</strong> ofertas hoy</div>
+      <div class="pill">💰 Hasta <strong>55% OFF</strong></div>
+    </div>
+  </div>
+  <nav class="cat-nav">
+    <div class="cat-inner" id="catNav">
+      <button class="cat-btn active" data-cat="Todos">🛍️ Todos</button>
+      <button class="cat-btn" data-cat="Smartphones">📱 Smartphones</button>
+      <button class="cat-btn" data-cat="Televisores">📺 Televisores</button>
+      <button class="cat-btn" data-cat="Laptops">💻 Laptops</button>
+      <button class="cat-btn" data-cat="Audio">🎧 Audio</button>
+      <button class="cat-btn" data-cat="Tablets">📟 Tablets</button>
+      <button class="cat-btn" data-cat="Gaming">🎮 Gaming</button>
+      <button class="cat-btn" data-cat="Cámaras">📷 Cámaras</button>
+      <button class="cat-btn" data-cat="Hogar">🏠 Hogar</button>
+      <button class="cat-btn" data-cat="Wearables">⌚ Wearables</button>
+      <button class="cat-btn" data-cat="Accesorios">🔌 Accesorios</button>
+    </div>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-eye">⚡ Productos reales verificados en Amazon</div>
+    <h1>Descuentos reales <em>hasta 55% OFF</em></h1>
+    <p class="hero-sub">Todos los productos enlazan directamente al artículo real en Amazon • Precios actualizados</p>
+    <div class="countdown">
+      <div class="cd-blk"><div class="cd-num" id="ch">00</div><div class="cd-lbl">Horas</div></div>
+      <div class="cd-sep">:</div>
+      <div class="cd-blk"><div class="cd-num" id="cm">00</div><div class="cd-lbl">Min</div></div>
+      <div class="cd-sep">:</div>
+      <div class="cd-blk"><div class="cd-num" id="cs">00</div><div class="cd-lbl">Seg</div></div>
+    </div>
+  </div>
+</section>
+
+<main class="main">
+  <div class="toolbar">
+    <span class="res-count">Mostrando <strong id="showing">0</strong> de <strong id="total">0</strong> ofertas</span>
+    <div class="filter-row">
+      <select class="fsel" id="sortSel">
+        <option value="discount">Mayor descuento</option>
+        <option value="price-asc">Precio: menor a mayor</option>
+        <option value="price-desc">Precio: mayor a menor</option>
+        <option value="rating">Mejor valorado</option>
+        <option value="reviews">Más reseñas</option>
+      </select>
+      <select class="fsel" id="ratingSel">
+        <option value="0">Cualquier rating</option>
+        <option value="3">3+ estrellas</option>
+        <option value="4">4+ estrellas</option>
+        <option value="4.5">4.5+ estrellas</option>
+      </select>
+      <div class="disc-filters">
+        <button class="dbtn active" data-disc="0">Todos</button>
+        <button class="dbtn" data-disc="20">20%+</button>
+        <button class="dbtn" data-disc="30">30%+</button>
+        <button class="dbtn" data-disc="40">40%+</button>
+        <button class="dbtn" data-disc="50">50%+</button>
+      </div>
+    </div>
+  </div>
+  <div class="grid" id="grid"></div>
+  <div class="no-res" id="noRes" style="display:none"><h3>Sin resultados</h3><p>Prueba otra búsqueda o categoría</p></div>
+  <div class="load-wrap" id="loadWrap" style="display:none"><button class="btn-load" id="loadBtn">Ver más ofertas ↓</button></div>
+</main>
+
+<!-- Modal de detalle de producto -->
+<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal" id="modalBox">
+    <div class="modal-bar">
+      <div class="modal-logo">Deal<span>Hunter</span> Pro</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-crumb" id="modalCrumb"></div>
+    <div class="modal-body">
+      <div class="modal-imgs">
+        <div class="main-img-wrap">
+          <span class="img-badge-modal" id="detailBadge"></span>
+          <img id="detailMainImg" src="" alt="">
+        </div>
+        <div class="thumb-row" id="thumbRow"></div>
+      </div>
+      <div class="modal-info">
+        <div>
+          <span class="modal-cat-tag" id="detailCat"></span>
+          <h2 class="modal-title" id="detailTitle"></h2>
+          <p class="modal-brand" id="detailBrand"></p>
+        </div>
+        <div class="stars-big">
+          <span class="stars" id="detailStars"></span>
+          <span class="rating-num" id="detailRating"></span>
+          <span class="rev-link" id="detailRevLink"></span>
+        </div>
+        <div class="price-block">
+          <div class="pb-label">Precio oferta en Amazon</div>
+          <div class="pb-main">
+            <span class="pb-now" id="detailPriceNow"></span>
+            <span class="pb-was" id="detailPriceWas"></span>
+            <span class="pb-pct" id="detailDisc"></span>
+          </div>
+          <div class="pb-savings" id="detailSavings"></div>
+        </div>
+        <div id="detailHighlights" style="display:flex;flex-direction:column;gap:9px"></div>
+        <div>
+          <div class="features-title">Características principales</div>
+          <ul class="features-list" id="detailFeatures"></ul>
+        </div>
+        <p id="detailDesc" style="font-size:13.5px;color:var(--muted);line-height:1.7"></p>
+      </div>
+      <div class="modal-buy">
+        <div class="buy-price-top">
+          <div class="buy-now-price" id="buyPrice"></div>
+          <div class="buy-was" id="buyWas"></div>
+          <div class="buy-savings-big" id="buySavings"></div>
+        </div>
+        <div id="buyInfo" style="display:flex;flex-direction:column;gap:9px"></div>
+        <hr class="buy-sep">
+        <a href="#" id="btnBuyAmazon" class="btn-amazon" target="_blank" rel="nofollow noopener">🛒 Comprar en Amazon</a>
+        <p class="btn-amazon-note">✅ Enlace directo al producto real en Amazon</p>
+        <a href="#" id="btnViewAmazon" class="btn-amazon-outline" target="_blank" rel="nofollow noopener">Ver producto en Amazon →</a>
+        <hr class="buy-sep">
+        <div style="display:flex;flex-direction:column;gap:7px">
+          <div class="trust-row"><span>🔒</span><span>Compra 100% segura en Amazon</span></div>
+          <div class="trust-row"><span>↩️</span><span>Devoluciones gratis 30 días</span></div>
+          <div class="trust-row"><span>🚚</span><span>Envío Prime disponible</span></div>
+          <div class="trust-row"><span>✅</span><span>Producto verificado y existente</span></div>
+        </div>
+        <hr class="buy-sep">
+        <div class="sim-title">También te puede interesar</div>
+        <div id="similarList" style="display:flex;flex-direction:column;gap:4px"></div>
+      </div>
+    </div>
+    <div class="modal-reviews">
+      <div class="rev-section-title">Reseñas de clientes en Amazon</div>
+      <div class="rev-summary">
+        <div class="rev-big-num" id="revBigNum"></div>
+        <div>
+          <div class="stars" style="font-size:20px" id="revBigStars"></div>
+          <div style="font-size:12px;color:var(--muted);margin-top:3px" id="revCount"></div>
+        </div>
+        <div class="rev-bars" id="revBars"></div>
+      </div>
+      <div class="rev-cards" id="revCards"></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="foot-logo">Deal<span>Hunter</span> Pro</div>
+  <p>Como Asociado de Amazon, obtenemos ingresos por las compras que califican.<br>
+  Los precios mostrados pueden variar. Última actualización: <span id="lastUpdate"></span></p>
+  <p style="margin-top:10px;font-size:11px">© 2025 DealHunter Pro — Todos los enlaces redirigen al producto real en Amazon.com</p>
+</footer>
+
+<script src="js/products.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
