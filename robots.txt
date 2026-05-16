@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /Webs prototipos/
+
+Sitemap: https://auroraclaud.com/sitemap.xml
