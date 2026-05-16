@@ -590,11 +590,77 @@ footer {
   .modal-body { grid-template-columns: 1fr 1fr; }
   .modal-buy  { grid-column: 1 / -1; border-top: 1px solid var(--border); }
 }
+
 @media (max-width: 620px) {
+  /* Header */
+  .hdr-top {
+    flex-wrap: wrap;
+    padding: 8px 12px;
+    gap: 8px;
+  }
+  .logo { font-size: 22px; }
+  .search-wrap {
+    order: 3;
+    width: 100%;
+    max-width: 100%;
+  }
+  .search-wrap input { font-size: 16px; } /* evita zoom en iOS al hacer focus */
+  .hdr-pills { display: none; }
+  .cat-inner { padding: 0 10px; }
+  .cat-btn   { padding: 9px 11px; font-size: 12px; }
+
+  /* Hero */
+  .hero { padding: 18px 14px; }
+  .hero h1 { font-size: 28px; }
+  .hero-sub { font-size: 12px; }
+  .cd-num { font-size: 24px; }
+  .cd-blk { padding: 8px 14px; }
+
+  /* Main / Toolbar */
+  .main { padding: 10px; }
+  .toolbar { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .filter-row { width: 100%; flex-wrap: wrap; margin-left: 0; }
+  .fsel { flex: 1; min-width: 0; font-size: 13px; }
+  .disc-filters { flex-wrap: wrap; gap: 5px; }
+
+  /* Grid */
+  .grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+
+  /* Cards */
+  .card-img  { height: 140px; padding: 8px; }
+  .card-body { padding: 10px; gap: 4px; }
+  .card-name { font-size: 12px; }
+  .price-now { font-size: 22px; }
+  .card-foot { padding: 8px 10px; }
+  .btn-detail { font-size: 12px; padding: 8px; }
+  .watchers  { font-size: 10px; }
+
+  /* Modal — bottom sheet en mobile */
+  .modal-overlay {
+    padding: 0;
+    align-items: flex-end;
+  }
+  .modal {
+    border-radius: 16px 16px 0 0;
+    max-height: 92vh;
+    overflow-y: auto;
+    margin: 0;
+    width: 100%;
+  }
   .modal-body  { grid-template-columns: 1fr; }
   .modal-imgs,
   .modal-info  { border-right: none; border-bottom: 1px solid var(--border); }
-  .hdr-pills   { display: none; }
-  .grid        { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-  .main        { padding: 12px; }
+  .modal-info,
+  .modal-buy   { max-height: none; overflow-y: visible; }
+  .main-img-wrap { height: 220px; }
+  .modal-body  { font-size: 13px; }
+  .pb-now      { font-size: 28px; }
+  .buy-now-price { font-size: 32px; }
+
+  /* Reviews */
+  .modal-reviews { padding: 16px; }
+  .rev-cards { grid-template-columns: 1fr; }
+
+  /* Footer */
+  footer { padding: 18px 14px; font-size: 11.5px; }
 }
