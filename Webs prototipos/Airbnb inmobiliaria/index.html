@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurora Luxury | Fachada Inmersiva Total</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        [x-cloak] { display: none !important; }
+        :root { --gold: #c5a059; }
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; overflow-x: hidden; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+
+        .unified-bg {
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('edificio.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .viewport-perspective {
+            perspective: 1500px;
+            position: relative;
+        }
+
+        .blurred-border-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 25px;
+            transition: transform 1.5s cubic-bezier(0.45, 0.05, 0.55, 0.95), opacity 1.5s ease;
+            z-index: 10;
+        }
+
+        .blurred-border-bg {
+            position: absolute;
+            inset: 0;
+            background-image: url('edificio.jpg');
+            background-size: cover;
+            background-position: center;
+            filter: blur(20px);
+            transform: scale(1.1);
+            z-index: -1;
+        }
+
+        .building-wrapper {
+            position: relative;
+            width: 100%;
+            transition: transform 1.5s cubic-bezier(0.45, 0.05, 0.55, 0.95), opacity 1.5s ease, filter 1.5s ease;
+            transform-origin: center center;
+            will-change: transform, opacity;
+        }
+
+        .zoomed-container {
+            transform: scale(8); 
+            opacity: 0.4;
+            filter: blur(2px);
+            z-index: 50; 
+        }
+
+        @media (max-width: 768px) {
+            .zoomed-container {
+                transform: scale(3);
+            }
+        }
+
+        .fast-exit-container {
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.5s ease !important;
+        }
+
+        .apt-hotspot, .terrace-hotspot {
+            position: absolute;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+            z-index: 10;
+        }
+
+        .apt-hotspot:hover, .terrace-hotspot:hover {
+            border-color: #fbbf24;
+            background-color: rgba(251, 191, 36, 0.4);
+        }
+
+        .floating-tooltip {
+            pointer-events: none;
+            position: fixed;
+            z-index: 100;
+            width: 210px;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(8px);
+            color: white;
+            padding: 15px;
+            border-left: 3px solid var(--gold);
+        }
+
+        .modal-content-anim {
+            animation: modalFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(1.1); filter: blur(10px); }
+            to { opacity: 1; transform: scale(1); filter: blur(0); }
+        }
+
+        .footer-input {
+            background-color: #f9f9f9;
+            border: none;
+            padding: 1rem;
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body x-data="auroraApp()">
+
+    <nav class="fixed w-full z-[60] bg-black/80 backdrop-blur-md py-4 px-6 md:px-16 flex justify-between items-center border-b border-white/10">
+        <div class="text-white font-black text-xl tracking-tighter uppercase italic">
+            AURORA <span class="text-[#c5a059] font-serif uppercase">Luxury</span>
+        </div>
+        <div class="hidden lg:flex space-x-8 text-[10px] font-bold text-zinc-400 uppercase tracking-widest">
+            <a href="#catalogo" class="hover:text-white transition">Disponibilidad</a>
+            <a href="#contacto" class="hover:text-white transition">Agendar Cita</a>
+        </div>
+        <div class="flex items-center space-x-4">
+            <div class="hidden md:block text-right">
+                <p class="text-[8px] text-[#c5a059] font-black uppercase tracking-widest">Últimas 4 unidades</p>
+                <p class="text-[7px] text-zinc-500 uppercase">Fase 1 - Entrega 2026</p>
+            </div>
+            <a :href="whatsappLink()" target="_blank" class="bg-[#c5a059] text-black px-4 py-2 text-[10px] font-black uppercase tracking-tighter hover:bg-[#b38f4d] transition">WhatsApp</a>
+        </div>
+    </nav>
+
+    <header class="relative h-screen flex items-center justify-center text-center unified-bg">
+        <div class="z-10 px-6">
+            <h1 class="text-white text-5xl md:text-8xl font-serif italic mb-4 leading-tight">Vive el lujo que</h1>
+            <h1 class="text-[#c5a059] text-5xl md:text-8xl font-serif italic mb-8 leading-tight">siempre soñaste</h1>
+            <p class="text-zinc-300 text-[10px] md:text-xs uppercase tracking-[0.4em] mb-12 font-bold">Apartamentos de alta gama en la zona más exclusiva</p>
+            
+            <div class="flex flex-col md:flex-row justify-center gap-4">
+                <a href="#catalogo" class="bg-white text-black px-12 py-5 text-[10px] font-black uppercase tracking-widest hover:bg-zinc-200 transition">Ver Unidades</a>
+                <a href="#" class="border border-white/30 text-white px-12 py-5 text-[10px] font-black uppercase tracking-widest hover:bg-white hover:text-black transition">Dossier Digital</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="catalogo" class="py-32 px-4 min-h-screen flex flex-col items-center justify-center viewport-perspective unified-bg relative">
+        <div class="absolute inset-0 bg-black/30 z-0"></div>
+
+        <div class="w-full relative z-10">
+            <div class="text-center mb-16 transition-opacity duration-700 max-w-4xl mx-auto" :class="isZooming ? 'opacity-0' : 'opacity-100'">
+                <h2 class="text-6xl font-serif italic mb-4 text-white">Catálogo</h2>
+                <div class="w-24 h-1 bg-[#c5a059] mx-auto mb-6"></div>
+                <p class="text-zinc-300 text-[10px] font-black uppercase tracking-[0.3em]">Clica en cualquier zona para entrar</p>
+            </div>
+
+            <div class="blurred-border-container"
+                 :class="{ 'zoomed-container': isZooming, 'fast-exit-container': !isZooming && exitMode }"
+                 :style="isZooming || exitMode ? `transform-origin: ${zoomPos.x}% ${zoomPos.y}%` : 'transform-origin: center center'">
+                
+                <div class="blurred-border-bg"></div>
+                
+                <div class="building-wrapper">
+                    <img id="imgEdificio" src="edificio.jpg" class="w-full block">
+
+                    <div class="terrace-hotspot"
+                         :style="`top: ${terracePos.y}%; left: ${terracePos.x}%; width: ${terracePos.w}%; height: ${terracePos.h}%;`"
+                         @mouseenter="hoveredTerrace = true"
+                         @mouseleave="hoveredTerrace = false"
+                         @mousemove="mouse = { x: $event.clientX, y: $event.clientY }"
+                         @click="triggerZoom($event, 'terrace')">
+                    </div>
+
+                    <template x-for="apt in apartamentos" :key="apt.id">
+                        <div class="apt-hotspot"
+                             :style="`top: ${apt.pos.y}%; left: ${apt.pos.x}%; width: ${apt.pos.w}%; height: ${apt.pos.h}%;`"
+                             @mouseenter="hoveredApt = apt"
+                             @mouseleave="hoveredApt = null"
+                             @mousemove="mouse = { x: $event.clientX, y: $event.clientY }"
+                             @click="triggerZoom($event, 'apt', apt)">
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="bg-black text-white py-24 px-6 md:px-20 relative z-20">
+        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16">
+            <div class="lg:w-1/2 flex flex-col justify-center">
+                <h2 class="text-5xl md:text-7xl font-serif italic mb-6 leading-tight text-white">
+                    Hablemos de tu<br>
+                    <span class="text-[#c5a059]">próxima</span> inversión
+                </h2>
+                <p class="text-zinc-500 text-sm italic mb-12 max-w-md">
+                    Completa el formulario y un asesor personal se pondrá en contacto contigo para coordinar una visita privada al proyecto.
+                </p>
+            </div>
+
+            <div class="lg:w-1/2">
+                <div class="bg-white p-10 md:p-16 text-black shadow-2xl">
+                    <form action="#" class="space-y-8">
+                        <div>
+                            <label class="text-[9px] font-black uppercase tracking-widest text-zinc-500">Nombre Completo</label>
+                            <input type="text" class="footer-input border-b border-zinc-200 focus:border-[#c5a059] outline-none transition">
+                        </div>
+                        <div>
+                            <label class="text-[9px] font-black uppercase tracking-widest text-zinc-500">Email Corporativo</label>
+                            <input type="email" class="footer-input border-b border-zinc-200 focus:border-[#c5a059] outline-none transition">
+                        </div>
+                        <div>
+                            <label class="text-[9px] font-black uppercase tracking-widest text-zinc-500">WhatsApp de contacto</label>
+                            <input type="tel" class="footer-input border-b border-zinc-200 focus:border-[#c5a059] outline-none transition">
+                        </div>
+                        <a :href="whatsappLink()" target="_blank" class="block w-full bg-black text-white py-6 text-center font-black uppercase text-[10px] tracking-[0.4em] hover:bg-[#c5a059] transition-colors">
+                            Solicitar disponibilidad
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div x-show="hoveredApt" x-cloak class="floating-tooltip" :style="`left: ${mouse.x + 20}px; top: ${mouse.y - 20}px`" x-transition>
+        <h4 class="font-serif italic text-lg text-[#c5a059] mb-1" x-text="'Unidad ' + hoveredApt?.id"></h4>
+        <p class="text-[10px] uppercase font-bold tracking-widest text-zinc-300" x-text="hoveredApt?.hab + ' HAB • ' + hoveredApt?.banos + ' BAÑOS'"></p>
+        <p class="text-white mt-2 font-black text-xs" x-text="formatPrice(hoveredApt?.price)"></p>
+    </div>
+    
+    <div x-show="hoveredTerrace" x-cloak class="floating-tooltip" :style="`left: ${mouse.x + 20}px; top: ${mouse.y - 20}px`" x-transition>
+        <h4 class="font-serif italic text-lg text-[#c5a059] mb-1">Rooftop Lounge</h4>
+        <p class="text-[10px] uppercase font-bold tracking-widest text-zinc-300">Piscina Infinita y Área de BBQ</p>
+    </div>
+
+    <!-- MODAL -->
+    <div x-show="modalOpen" x-cloak class="fixed inset-0 z-[100] flex items-end md:items-center justify-center md:p-4 bg-black/60 backdrop-blur-md" x-transition:enter="transition opacity duration-700">
+        <div class="bg-white w-full md:max-w-5xl md:flex md:flex-row shadow-2xl relative modal-content-anim rounded-t-2xl md:rounded-none" @click.away="closeAll()">
+
+            <button @click="closeAll()" class="absolute top-3 right-4 text-2xl text-black z-50 hover:text-[#c5a059] transition-colors leading-none">&times;</button>
+
+            <div class="md:w-2/3 bg-zinc-200 overflow-hidden rounded-t-2xl md:rounded-none">
+                <img :src="modalType === 'apt' ? selectedApt?.id + '.jpg' : 'terraza.jpg'" class="w-full object-cover h-36 md:h-full md:min-h-[450px]" @error="tryNextExtension($event.target, modalType === 'apt' ? selectedApt?.id : 'terraza')">
+            </div>
+
+            <div class="md:w-1/3 md:p-12 md:flex md:flex-col md:justify-center bg-white md:border-l border-zinc-100 text-black">
+
+                <!-- MOVIL: cabecera compacta -->
+                <div class="flex md:hidden items-center gap-3 px-4 pt-3 pb-2">
+                    <div class="flex-1 min-w-0">
+                        <h2 x-show="modalType === 'apt'" class="text-lg font-serif italic leading-tight" x-text="'Unidad ' + selectedApt?.id"></h2>
+                        <h2 x-show="modalType === 'terrace'" class="text-lg font-serif italic leading-tight">Rooftop Lounge</h2>
+                        <template x-if="modalType === 'apt'">
+                            <p class="text-[#c5a059] text-base font-bold mt-0.5" x-text="formatPrice(selectedApt?.price)"></p>
+                        </template>
+                        <template x-if="modalType === 'terrace'">
+                            <p class="text-[#c5a059] text-sm font-bold mt-0.5">Piscina Infinita &amp; BBQ</p>
+                        </template>
+                    </div>
+                    <template x-if="modalType === 'apt'">
+                        <span class="text-[8px] font-black px-2 py-1 bg-zinc-100 uppercase tracking-widest text-zinc-500 shrink-0" x-text="selectedApt?.status"></span>
+                    </template>
+                </div>
+
+                <!-- MOVIL: detalles en fila -->
+                <div class="flex md:hidden px-4 py-2 border-t border-zinc-100 text-xs text-zinc-500 italic">
+                    <template x-if="modalType === 'apt'">
+                        <div class="flex gap-4">
+                            <span>&#10086; <span x-text="selectedApt?.hab"></span> hab.</span>
+                            <span>&#10086; <span x-text="selectedApt?.banos"></span> ba&ntilde;os</span>
+                            <span class="font-bold text-black" x-text="selectedApt?.size + ' m²'"></span>
+                        </div>
+                    </template>
+                    <template x-if="modalType === 'terrace'">
+                        <div class="flex gap-3 flex-wrap">
+                            <span>Piscina climatizada</span>
+                            <span>&middot; &Aacute;rea BBQ</span>
+                            <span>&middot; Lounge</span>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- MOVIL: boton CTA -->
+                <div class="md:hidden px-4 pb-5 pt-2">
+                    <a :href="whatsappLink(selectedApt?.id)" target="_blank" class="block w-full bg-black text-white py-3 text-center text-[10px] font-black uppercase tracking-[0.2em] hover:bg-[#c5a059] transition-all italic rounded">
+                        RESERVAR CITA
+                    </a>
+                </div>
+
+                <!-- DESKTOP: layout completo -->
+                <div class="hidden md:block">
+                    <h2 x-show="modalType === 'apt'" class="text-5xl font-serif italic mb-4" x-text="'Unidad ' + selectedApt?.id"></h2>
+                    <h2 x-show="modalType === 'terrace'" class="text-5xl font-serif italic mb-4">Rooftop Lounge</h2>
+                    <div class="mb-6">
+                        <template x-if="modalType === 'apt'">
+                            <div>
+                                <p class="text-[#c5a059] text-3xl font-bold mb-1" x-text="formatPrice(selectedApt?.price)"></p>
+                                <span class="text-[9px] font-black px-2 py-1 bg-zinc-100 uppercase tracking-widest text-zinc-500" x-text="selectedApt?.status"></span>
+                            </div>
+                        </template>
+                        <template x-if="modalType === 'terrace'">
+                            <p class="text-[#c5a059] text-xl font-bold mb-1">Piscina Infinita y &Aacute;rea BBQ</p>
+                        </template>
+                    </div>
+                    <div class="space-y-3 mb-10 border-t border-zinc-100 pt-6 text-zinc-600 text-sm italic leading-relaxed">
+                        <template x-if="modalType === 'apt'">
+                            <div>
+                                <p>&#10086; <span x-text="selectedApt?.hab"></span> Habitaciones</p>
+                                <p>&#10086; <span x-text="selectedApt?.banos"></span> Ba&ntilde;os</p>
+                                <p>&#10086; <span x-text="selectedApt?.extras"></span></p>
+                                <p class="font-bold text-black mt-4" x-text="selectedApt?.size + ' m²'"></p>
+                            </div>
+                        </template>
+                        <template x-if="modalType === 'terrace'">
+                            <div>
+                                <p>&#10086; Piscina climatizada con vistas a la ciudad</p>
+                                <p>&#10086; Zona de barbacoa de acero inoxidable</p>
+                                <p>&#10086; Sof&aacute;s lounge y hoguera</p>
+                            </div>
+                        </template>
+                    </div>
+                    <a :href="whatsappLink(selectedApt?.id)" target="_blank" class="block bg-black text-white py-5 text-center text-[10px] font-black uppercase tracking-[0.2em] hover:bg-[#c5a059] transition-all italic">
+                        RESERVAR CITA
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const extensions = ['.jpg', '.png', '.webp', '.jpeg', '.JPG', '.PNG'];
+        function tryNextExtension(imgElement, fileName) {
+            let currentPath = imgElement.src;
+            let currentExt = extensions.find(ext => currentPath.endsWith(ext));
+            let currentIndex = extensions.indexOf(currentExt);
+            if (currentIndex < extensions.length - 1) imgElement.src = fileName + extensions[currentIndex + 1];
+        }
+
+        function auroraApp() {
+            return {
+                modalOpen: false,
+                isZooming: false,
+                exitMode: false,
+                modalType: 'apt',
+                selectedApt: null,
+                hoveredApt: null,
+                hoveredTerrace: false,
+                mouse: { x: 0, y: 0 },
+                zoomPos: { x: 50, y: 50 },
+                terracePos: { x: 24.7, y: 14.7, w: 58, h: 8 },
+                apartamentos: [
+                    { id: '1', price: 185000, status: 'DISPONIBLE', pos: { x: 21.5, y: 69.7, w: 24.7, h: 8.4 }, size: 110, hab: 2, banos: 2, extras: 'SALA Y COCINA MODERNA' },
+                    { id: '2', price: 190000, status: 'DISPONIBLE', pos: { x: 56.6, y: 69.7, w: 26.3, h: 7.6 }, size: 115, hab: 2, banos: 2, extras: 'SALA Y BALCÓN FRONTAL' },
+                    { id: '3', price: 210000, status: 'DISPONIBLE', pos: { x: 21.5, y: 58.6, w: 24.7, h: 8.4 }, size: 128, hab: 3, banos: 2, extras: 'ESTUDIO Y BALCÓN' },
+                    { id: '4', price: 215000, status: 'VENDIDO',    pos: { x: 57.4, y: 58.6, w: 24.7, h: 9.2 }, size: 130, hab: 3, banos: 2, extras: 'ACABADOS EN MÁRMOL' },
+                    { id: '5', price: 260000, status: 'DISPONIBLE', pos: { x: 21.5, y: 47.4, w: 19.9, h: 9.2 }, size: 150, hab: 3, banos: 2.5, extras: 'COCINA CON ISLA' },
+                    { id: '6', price: 265000, status: 'RESERVADO',  pos: { x: 57.4, y: 48.2, w: 25, h: 9.2 }, size: 155, hab: 3, banos: 2.5, extras: 'BALCÓN TIPO TERRAZA' },
+                    { id: '7', price: 350000, status: 'DISPONIBLE', pos: { x: 20.7, y: 37.1, w: 20.7, h: 8.4 }, size: 190, hab: 4, banos: 3.5, extras: 'PENTHOUSE NIVEL SUPERIOR' },
+                    { id: '8', price: 310000, status: 'DISPONIBLE', pos: { x: 57.4, y: 38.6, w: 25, h: 8.4 }, size: 175, hab: 3, banos: 3, extras: 'VISTA PANORÁMICA ALTA' },
+                    { id: '9', price: 410000, status: 'DISPONIBLE', pos: { x: 21.5, y: 25.1, w: 20.7, h: 9.2 }, size: 205, hab: 4, banos: 4, extras: 'VISTA CIUDAD TOP' },
+                    { id: '10', price: 420000, status: 'DISPONIBLE', pos: { x: 57.4, y: 25.1, w: 25, h: 10 }, size: 210, hab: 4, banos: 4, extras: 'VISTA CIUDAD TOP' },
+                ],
+                whatsappLink(unitId = null) {
+                    const phone = "18496510540";
+                    let text = "Hola \uD83D\uDC4B\n\n";
+                    text += "Estoy interesado(a) en el proyecto *Aurora Luxury \u2728*.\n";
+
+                    if (unitId && this.modalType === 'apt') {
+                        text += "Me gustar\u00EDa recibir informaci\u00F3n de la *Unidad " + unitId + " \uD83C\uDFE2*, disponibilidad actual \uD83D\uDCCA, precio \uD83D\uDCB0 y plan de pago.\n\n";
+                    } else if (this.modalType === 'terrace') {
+                        text += "Me gustar\u00EDa recibir informaci\u00F3n sobre el *Rooftop Lounge \uD83C\uDFCA\u200D\u2642\uFE0F*, disponibilidad y detalles adicionales.\n\n";
+                    } else {
+                        text += "Me gustar\u00EDa recibir informaci\u00F3n general, disponibilidad actual \uD83D\uDCCA, precio \uD83D\uDCB0 y plan de pago.\n\n";
+                    }
+
+                    text += "Tambi\u00E9n quisiera saber si es posible coordinar una cita \uD83D\uDCC5 o video llamada para conocer mejor el proyecto.\n\n";
+                    text += "Quedo atento(a) \uD83D\uDE4F";
+
+                    // Reemplazo manual seguro de saltos de línea y espacios antes de codificar
+                    const cleanText = text.normalize('NFC');
+                    return "https://api.whatsapp.com/send?phone=" + phone + "&text=" + encodeURIComponent(cleanText);
+                },
+                updateMouse(e) {
+                    this.mouse.x = e.clientX;
+                    this.mouse.y = e.clientY;
+                },
+                triggerZoom(event, type, apt = null) {
+                    const rect = event.currentTarget.getBoundingClientRect();
+                    const containerRect = document.querySelector('.blurred-border-container').getBoundingClientRect();
+                    this.zoomPos.x = ((event.clientX - containerRect.left) / containerRect.width) * 100;
+                    this.zoomPos.y = ((event.clientY - containerRect.top) / containerRect.height) * 100;
+                    
+                    this.exitMode = false;
+                    this.isZooming = true;
+                    this.modalType = type;
+                    this.selectedApt = apt;
+
+                    setTimeout(() => { this.modalOpen = true; }, 1000);
+                },
+                closeAll() {
+                    this.modalOpen = false;
+                    setTimeout(() => {
+                        this.isZooming = false;
+                        this.exitMode = true; 
+                        setTimeout(() => {
+                            this.exitMode = false;
+                            this.selectedApt = null;
+                        }, 500);
+                    }, 100);
+                },
+                formatPrice(val) { return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(val); }
+            }
+        }
+    </script>
+</body>
+</html>
