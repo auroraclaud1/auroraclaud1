@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout — DealHunter Pro</title>
+  <link rel="icon" type="image/png" href="logo/isotipo.png">
+  <link rel="shortcut icon" href="logo/isotipo.png">
+  <link rel="apple-touch-icon" href="logo/isotipo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-top">
+    <a class="logo" href="index.html"><img src="logo/logo.png" alt="DealHunter Pro" class="logo-img"></a>
+
+    <div class="hdr-addr">
+      <svg class="hdr-addr-pin" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+      </svg>
+      <div>
+        <div class="hdr-addr-top">Entregar a</div>
+        <div class="hdr-addr-main" id="hdrAddrCountry">Detectando…</div>
+      </div>
+    </div>
+
+    <div class="search-wrap">
+      <input type="text" placeholder="Buscar productos..." onkeydown="if(event.key==='Enter'){window.location.href='index.html?q='+encodeURIComponent(this.value)}">
+      <button onclick="window.location.href='index.html'">🔍</button>
+    </div>
+
+    <div class="hdr-right">
+      <div class="hdr-country-wrap" id="countryWrap">
+        <button class="hdr-icon-btn hdr-country-btn" id="countryBtn" onclick="toggleCountry(event)" title="Seleccionar país">
+          <img id="countryFlag" src="https://flagcdn.com/w40/us.png" alt="País" class="hdr-flag">
+          <span id="countryCode" class="hdr-country-code">US</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="hdr-country-drop" id="countryDrop"></div>
+      </div>
+      <button class="hdr-user-block" onclick="window.location.href='index.html'">
+        <div class="hdr-block-top">Bienvenido</div>
+        <div class="hdr-block-main">Iniciar sesión</div>
+      </button>
+      <div class="hdr-cart-btn" onclick="window.location.href='index.html'" title="Seguir comprando" style="cursor:pointer">
+        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="9" cy="21" r="1" fill="currentColor"/>
+          <circle cx="20" cy="21" r="1" fill="currentColor"/>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+        </svg>
+        <span class="hdr-cart-badge" id="ckpCartBadge">0</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="ckp-page" id="ckpPage">
+
+  <!-- ── LEFT: steps ── -->
+  <div class="ckp-main" id="ckpMain">
+
+    <!-- Step indicator -->
+    <div class="ckp-steps">
+      <div class="ckp-step active" id="ckpInd1">
+        <div class="ckp-step-num">1</div>
+        <span>Dirección de envío</span>
+      </div>
+      <div class="ckp-step-line" id="ckpLine12"></div>
+      <div class="ckp-step" id="ckpInd2">
+        <div class="ckp-step-num">2</div>
+        <span>Pago</span>
+      </div>
+    </div>
+
+    <!-- ── Step 1: Shipping address ── -->
+    <div class="ckp-section" id="ckpShipSection">
+      <div class="ckp-section-hdr"><span>🚚</span> Dirección de envío</div>
+
+      <div class="ckp-field">
+        <label class="ckp-label" for="shipName">Nombre completo</label>
+        <input class="ckp-inp" id="shipName" type="text" placeholder="Juan García" autocomplete="name">
+      </div>
+
+      <div class="ckp-field">
+        <label class="ckp-label" for="shipAddr1">
+          Dirección
+          <span id="addrCountryTag" style="font-weight:400;color:var(--muted);margin-left:6px;font-size:11px"></span>
+        </label>
+        <div class="ckp-addr-wrap">
+          <input class="ckp-inp" id="shipAddr1" type="text" placeholder="Escribe tu calle y número…" autocomplete="off">
+          <div class="ckp-addr-drop" id="addrDrop"></div>
+        </div>
+        <div style="font-size:11px;color:var(--muted);margin-top:4px">Las sugerencias corresponden al país seleccionado en el encabezado</div>
+      </div>
+
+      <div class="ckp-field">
+        <label class="ckp-label" for="shipAddr2">Apartamento, suite, piso… <span style="color:var(--muted);font-weight:400">(opcional)</span></label>
+        <input class="ckp-inp" id="shipAddr2" type="text" placeholder="Apt 4B, Piso 3, Oficina 12…">
+      </div>
+
+      <div class="ckp-3col">
+        <div class="ckp-field">
+          <label class="ckp-label" for="shipCity">Ciudad</label>
+          <input class="ckp-inp" id="shipCity" type="text" placeholder="Ciudad" autocomplete="address-level2">
+        </div>
+        <div class="ckp-field">
+          <label class="ckp-label" for="shipState">Estado / Provincia</label>
+          <input class="ckp-inp" id="shipState" type="text" placeholder="Estado" autocomplete="address-level1">
+        </div>
+        <div class="ckp-field">
+          <label class="ckp-label" for="shipZip">C.P.</label>
+          <input class="ckp-inp" id="shipZip" type="text" placeholder="ZIP" autocomplete="postal-code" maxlength="12">
+        </div>
+      </div>
+
+      <div class="ckp-field" style="margin-bottom:20px">
+        <label class="ckp-label" for="shipCountry">País</label>
+        <input class="ckp-inp" id="shipCountry" type="text" placeholder="País" autocomplete="country-name">
+      </div>
+
+      <div class="ckp-err" id="shipErr" style="display:none"></div>
+      <button class="ckp-next-btn" onclick="goStep2()">Continuar al pago →</button>
+    </div>
+
+    <!-- ── Step 2: Payment ── -->
+    <div class="ckp-section" id="ckpPaySection" style="display:none">
+      <div class="ckp-section-hdr"><span>💳</span> Información de pago</div>
+
+      <!-- Shipping summary pill -->
+      <div class="ckp-ship-bar" id="ckpShipBar">
+        <div style="font-size:13px">🚚 <span id="ckpShipText"></span></div>
+        <button onclick="goStep1()">Cambiar</button>
+      </div>
+
+      <!-- Card brand logos -->
+      <div class="ckp-card-logos">
+        <span class="ckp-card-logo visa">VISA</span>
+        <span class="ckp-card-logo mc">MC</span>
+        <span class="ckp-card-logo amex">AMEX</span>
+      </div>
+
+      <div class="ckp-field">
+        <label class="ckp-label" for="payName">Nombre del titular</label>
+        <input class="ckp-inp" id="payName" type="text" placeholder="Como aparece en la tarjeta" autocomplete="cc-name">
+      </div>
+
+      <div class="ckp-field">
+        <label class="ckp-label" for="payCard">Número de tarjeta</label>
+        <div class="ckp-card-wrap">
+          <input class="ckp-inp" id="payCard" type="text" placeholder="1234  5678  9012  3456" maxlength="22" autocomplete="cc-number" inputmode="numeric" style="padding-right:46px">
+          <span class="ckp-card-icon" id="payBrand">💳</span>
+        </div>
+      </div>
+
+      <div class="ckp-2col">
+        <div class="ckp-field">
+          <label class="ckp-label" for="payExp">Vencimiento</label>
+          <input class="ckp-inp" id="payExp" type="text" placeholder="MM/AA" maxlength="5" inputmode="numeric" autocomplete="cc-exp">
+        </div>
+        <div class="ckp-field">
+          <label class="ckp-label" for="payCvv">CVV <span class="ckp-cvv-hint" title="3 dígitos al dorso de la tarjeta (AMEX: 4 al frente)">?</span></label>
+          <input class="ckp-inp" id="payCvv" type="text" placeholder="•••" maxlength="4" inputmode="numeric" autocomplete="cc-csc">
+        </div>
+      </div>
+
+      <!-- Billing address -->
+      <div class="ckp-billing-sep">
+        <div class="ckp-section-hdr"><span>🏠</span> Dirección de facturación</div>
+        <p style="font-size:12px;color:var(--muted);margin:-10px 0 12px">La dirección registrada en tu tarjeta bancaria (la que usa tu banco para verificar la identidad).</p>
+        <label class="ckp-check-row">
+          <input type="checkbox" id="billSame" onchange="toggleBilling()">
+          <span>La misma que la dirección de envío</span>
+        </label>
+        <div id="billAddrFields">
+          <div class="ckp-field">
+            <label class="ckp-label" for="billAddr1">Dirección</label>
+            <input class="ckp-inp" id="billAddr1" type="text" placeholder="Calle, número…">
+          </div>
+          <div class="ckp-3col">
+            <div class="ckp-field">
+              <label class="ckp-label" for="billCity">Ciudad</label>
+              <input class="ckp-inp" id="billCity" type="text" placeholder="Ciudad">
+            </div>
+            <div class="ckp-field">
+              <label class="ckp-label" for="billState">Estado</label>
+              <input class="ckp-inp" id="billState" type="text" placeholder="Estado">
+            </div>
+            <div class="ckp-field">
+              <label class="ckp-label" for="billZip">C.P.</label>
+              <input class="ckp-inp" id="billZip" type="text" placeholder="ZIP" maxlength="12">
+            </div>
+          </div>
+          <div class="ckp-field">
+            <label class="ckp-label" for="billCountry">País</label>
+            <input class="ckp-inp" id="billCountry" type="text" placeholder="País">
+          </div>
+        </div>
+      </div>
+
+      <div class="ckp-err" id="payErr" style="display:none"></div>
+      <button class="ckp-submit" onclick="processCheckout()">
+        🔒 Pagar $<span id="ckpPayTotal">0.00</span>
+      </button>
+      <div class="ckp-ssl">Transacción protegida con cifrado SSL de 256 bits</div>
+    </div>
+
+    <!-- Processing state -->
+    <div class="ckp-state" id="ckpStateProcess">
+      <div class="ckp-spin"></div>
+      <div style="font-weight:700;font-size:17px;color:var(--text)">Procesando pago…</div>
+      <div style="color:var(--muted);font-size:13px">Por favor no cierres esta ventana</div>
+    </div>
+
+    <!-- Success state -->
+    <div class="ckp-state" id="ckpStateSuccess">
+      <div class="ckp-state-icon" style="background:#d1fae5">✅</div>
+      <div style="font-weight:700;font-size:22px;color:#16a34a">¡Pago completado!</div>
+      <div id="ckpOrderNum" style="font-size:14px;font-weight:600;background:#f1f5f9;padding:8px 18px;border-radius:8px;font-family:monospace;letter-spacing:.05em"></div>
+      <p style="font-size:14px;color:var(--muted);max-width:340px;line-height:1.7;margin:0">Recibirás la confirmación en tu correo con todos los detalles del pedido.</p>
+      <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:14px 20px;font-size:13px;text-align:left;width:100%;display:flex;flex-direction:column;gap:5px">
+        <div>🚚 Envío estimado: <strong>1–2 días laborables</strong></div>
+        <div>📧 Confirmación enviada a tu correo</div>
+        <div>↩️ Devoluciones gratis — 30 días</div>
+      </div>
+      <button onclick="window.location.href='index.html'" style="width:100%;max-width:280px;padding:13px;background:#FFD814;border:1px solid #FCD200;border-radius:8px;font-size:15px;font-weight:700;color:#0F1111;cursor:pointer;font-family:'DM Sans',sans-serif">
+        Seguir comprando →
+      </button>
+    </div>
+
+    <!-- Declined state -->
+    <div class="ckp-state" id="ckpStateDeclined">
+      <div class="ckp-state-icon" style="background:#fee2e2">❌</div>
+      <div style="font-weight:700;font-size:22px;color:var(--red)">Pago rechazado</div>
+      <div style="background:#fff5f5;border:1px solid #fca5a5;border-radius:10px;padding:14px 20px;font-size:13px;text-align:left;width:100%;display:flex;flex-direction:column;gap:5px">
+        <div>⚠️ Tu banco no autorizó la transacción</div>
+        <div>🔒 Posible bloqueo de seguridad bancario</div>
+        <div>📞 Contacta a tu banco si el problema persiste</div>
+      </div>
+      <button onclick="retryCheckout()" style="width:100%;max-width:280px;padding:13px;background:var(--navy);border:none;border-radius:8px;font-size:15px;font-weight:700;color:#fff;cursor:pointer;font-family:'DM Sans',sans-serif">
+        Intentar con otra tarjeta →
+      </button>
+      <button onclick="window.location.href='index.html'" style="width:100%;max-width:280px;padding:11px;background:none;border:1px solid var(--border);border-radius:8px;font-size:13px;color:var(--muted);cursor:pointer;font-family:'DM Sans',sans-serif">
+        Cancelar y volver
+      </button>
+    </div>
+
+  </div><!-- end ckp-main -->
+
+  <!-- ── RIGHT: order summary ── -->
+  <div class="ckp-sidebar">
+    <div class="ckp-sum-card">
+      <div class="ckp-sum-hdr">Resumen del pedido</div>
+      <div class="ckp-sum-items" id="ckpSumItems">
+        <div style="padding:20px;text-align:center;color:var(--muted);font-size:13px">Cargando…</div>
+      </div>
+      <div class="ckp-sum-totals" id="ckpSumTotals"></div>
+    </div>
+  </div>
+
+</div><!-- end ckp-page -->
+
+<footer>
+  <div class="foot-logo"><img src="logo/logo.png" alt="DealHunter Pro" class="logo-img"></div>
+  <p>Como Asociado de Amazon, obtenemos ingresos por las compras que califican.</p>
+  <p style="margin-top:8px;font-size:11px">© 2025 DealHunter Pro — Todos los enlaces redirigen al producto real en Amazon.com</p>
+</footer>
+
+<script src="js/products.js"></script>
+<script src="js/header.js"></script>
+<script>
+/* ── Cart helpers (self-contained for checkout) ── */
+const CART_KEY = 'dhp_cart';
+function cartGet()  { try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch { return []; } }
+function cartTotal(){ return cartGet().reduce((s,i) => s + i.precio * i.qty, 0); }
+function cartCount(){ return cartGet().reduce((s,i) => s + i.qty, 0); }
+
+/* ── Country helpers (needed before bootstrap) ── */
+const COUNTRY_NAMES = {
+  US:'Estados Unidos', DO:'República Dominicana', MX:'México', ES:'España',
+  CO:'Colombia', AR:'Argentina', CL:'Chile', PE:'Perú', VE:'Venezuela',
+  EC:'Ecuador', CA:'Canada', GB:'Reino Unido', DE:'Deutschland',
+  FR:'France', IT:'Italia', BR:'Brasil', AU:'Australia', JP:'Japan'
+};
+function activeCountryCode() {
+  return (localStorage.getItem('dhp_country') || 'US').toUpperCase();
+}
+
+const items = cartGet();
+
+/* ── Bootstrap: empty cart guard ── */
+if (!items.length) {
+  document.getElementById('ckpPage').innerHTML =
+    '<div class="ckp-section" style="max-width:480px;margin:40px auto;text-align:center;padding:52px 32px">' +
+      '<div style="font-size:56px">🛒</div>' +
+      '<h2 style="margin:16px 0 8px;font-family:\'Barlow Condensed\',sans-serif;font-size:26px">Tu carrito está vacío</h2>' +
+      '<p style="color:var(--muted);margin-bottom:20px">Agrega productos antes de continuar al checkout.</p>' +
+      '<a href="index.html" style="display:inline-block;padding:11px 28px;background:#FFD814;border:1px solid #FCD200;border-radius:8px;font-size:15px;font-weight:700;color:#0F1111;text-decoration:none">← Ver ofertas</a>' +
+    '</div>';
+} else {
+  /* Update header badge */
+  const badge = document.getElementById('ckpCartBadge');
+  if (badge) badge.textContent = cartCount();
+
+  /* Render sidebar */
+  renderSummary();
+
+  /* Update pay button total */
+  document.getElementById('ckpPayTotal').textContent = cartTotal().toFixed(2);
+
+  /* Init autocomplete */
+  initAddrAutocomplete();
+
+  /* Card formatting */
+  initCardFormatting();
+
+  /* Pre-fill country from header selector */
+  const el = document.getElementById('shipCountry');
+  if (el) el.value = COUNTRY_NAMES[activeCountryCode()] || '';
+}
+
+/* ── Render order summary sidebar ── */
+function renderSummary() {
+  const el     = document.getElementById('ckpSumItems');
+  const totals = document.getElementById('ckpSumTotals');
+  if (!el) return;
+
+  const subtotal = items.reduce((s,i) => s + (i.precioAntes || i.precio) * i.qty, 0);
+  const total    = cartTotal();
+  const savings  = subtotal - total;
+  const count    = cartCount();
+
+  el.innerHTML = items.map(item => `
+    <div class="ckp-sum-item">
+      <img src="${item.imagen}" alt="${item.nombre}" onerror="this.style.visibility='hidden'">
+      <div class="ckp-sum-item-info">
+        <div class="ckp-sum-item-name">${item.nombre.length > 55 ? item.nombre.substring(0,55)+'…' : item.nombre}</div>
+        <div class="ckp-sum-item-price">$${(item.precio * item.qty).toFixed(2)}</div>
+        <div class="ckp-sum-item-qty">Cant: ${item.qty} · $${item.precio.toFixed(2)} c/u</div>
+      </div>
+    </div>
+  `).join('');
+
+  totals.innerHTML = `
+    <div class="ckp-sum-row"><span>Subtotal (${count} artículo${count!==1?'s':''})</span><span class="ckp-sum-strike">$${subtotal.toFixed(2)}</span></div>
+    <div class="ckp-sum-row"><span>Descuentos</span><span class="saving">-$${savings.toFixed(2)}</span></div>
+    <div class="ckp-sum-row"><span>Envío Prime</span><span class="free">GRATIS</span></div>
+    <div class="ckp-sum-row total"><span>Total</span><span>$${total.toFixed(2)}</span></div>
+  `;
+}
+
+/* ── Step navigation ── */
+let _ship = {};
+
+function goStep1() {
+  document.getElementById('ckpPaySection').style.display  = 'none';
+  document.getElementById('ckpShipSection').style.display = '';
+  document.getElementById('ckpInd1').className = 'ckp-step active';
+  document.getElementById('ckpInd2').className = 'ckp-step';
+  document.getElementById('ckpLine12').className = 'ckp-step-line';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function goStep2() {
+  const name    = document.getElementById('shipName').value.trim();
+  const addr    = document.getElementById('shipAddr1').value.trim();
+  const city    = document.getElementById('shipCity').value.trim();
+  const zip     = document.getElementById('shipZip').value.trim();
+  const country = document.getElementById('shipCountry').value.trim();
+  const errEl   = document.getElementById('shipErr');
+  errEl.style.display = 'none';
+
+  if (!name)    return showFieldErr('shipName',    'Ingresa tu nombre completo', errEl);
+  if (!addr)    return showFieldErr('shipAddr1',   'Ingresa tu dirección', errEl);
+  if (!city)    return showFieldErr('shipCity',    'Ingresa tu ciudad', errEl);
+  if (!zip)     return showFieldErr('shipZip',     'Ingresa tu código postal', errEl);
+  if (!country) return showFieldErr('shipCountry', 'Ingresa tu país', errEl);
+
+  _ship = {
+    name, addr,
+    addr2:   document.getElementById('shipAddr2').value.trim(),
+    city,
+    state:   document.getElementById('shipState').value.trim(),
+    zip, country
+  };
+
+  const summary = `${name} · ${addr}${_ship.addr2 ? ', '+_ship.addr2 : ''}, ${city}${_ship.state ? ', '+_ship.state : ''}, ${country}`;
+  document.getElementById('ckpShipText').textContent = summary;
+
+  document.getElementById('ckpShipSection').style.display = 'none';
+  document.getElementById('ckpPaySection').style.display  = '';
+  document.getElementById('ckpInd1').className  = 'ckp-step done';
+  document.getElementById('ckpInd2').className  = 'ckp-step active';
+  document.getElementById('ckpLine12').className = 'ckp-step-line done';
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  setTimeout(() => document.getElementById('payName').focus(), 80);
+}
+
+function showFieldErr(id, msg, errEl) {
+  const inp = document.getElementById(id);
+  if (inp) { inp.classList.add('error'); inp.focus(); setTimeout(() => inp.classList.remove('error'), 2200); }
+  if (errEl) { errEl.textContent = msg; errEl.style.display = ''; }
+}
+
+function toggleBilling() {
+  const same = document.getElementById('billSame').checked;
+  document.getElementById('billAddrFields').style.display = same ? 'none' : '';
+}
+
+/* ── Address autocomplete (Nominatim) ── */
+let _addrTimer;
+
+function updateAddrCountryTag() {
+  const tag = document.getElementById('addrCountryTag');
+  if (!tag) return;
+  const cc   = activeCountryCode();
+  const name = COUNTRY_NAMES[cc] || cc;
+  tag.textContent = '— buscando en ' + name;
+}
+
+function initAddrAutocomplete() {
+  const inp  = document.getElementById('shipAddr1');
+  const drop = document.getElementById('addrDrop');
+  if (!inp || !drop) return;
+
+  updateAddrCountryTag();
+
+  inp.addEventListener('input', () => {
+    const q = inp.value.trim();
+    clearTimeout(_addrTimer);
+    drop.classList.remove('open');
+    if (q.length < 3) return;
+    drop.innerHTML = '<div class="ckp-addr-loading">🔍 Buscando en ' + (COUNTRY_NAMES[activeCountryCode()] || activeCountryCode()) + '…</div>';
+    drop.classList.add('open');
+    _addrTimer = setTimeout(() => fetchAddr(q, inp, drop), 380);
+  });
+
+  inp.addEventListener('blur', () => setTimeout(() => drop.classList.remove('open'), 220));
+
+  /* Re-render country tag if user changes country in header while on this page */
+  window.addEventListener('storage', e => {
+    if (e.key === 'dhp_country') updateAddrCountryTag();
+  });
+}
+
+async function fetchAddr(q, inp, drop) {
+  const cc = activeCountryCode().toLowerCase();
+  try {
+    const url = 'https://nominatim.openstreetmap.org/search?format=json&limit=6&addressdetails=1&accept-language=es&countrycodes=' + cc + '&q=' + encodeURIComponent(q);
+    const res  = await fetch(url);
+    const data = await res.json();
+
+    if (!data.length) {
+      drop.innerHTML = '<div class="ckp-addr-empty">Sin resultados en ' + (COUNTRY_NAMES[cc.toUpperCase()] || cc.toUpperCase()) + ' — intenta con otra dirección</div>';
+      return;
+    }
+
+    drop.innerHTML = '';
+    data.forEach((item, idx) => {
+      const div = document.createElement('div');
+      div.className = 'ckp-addr-item';
+      /* Show a shorter label: strip the country suffix since we already know it */
+      const parts = item.display_name.split(', ');
+      div.textContent = parts.length > 2 ? parts.slice(0, -1).join(', ') : item.display_name;
+      div.title = item.display_name;
+      if (idx === 0) div.classList.add('focused');
+      div.addEventListener('mousedown', e => {
+        e.preventDefault();
+        fillAddr(item, inp);
+        drop.classList.remove('open');
+      });
+      drop.appendChild(div);
+    });
+  } catch {
+    drop.innerHTML = '<div class="ckp-addr-empty">No se pudo conectar al servicio de búsqueda</div>';
+  }
+}
+
+function fillAddr(item, addrInp) {
+  const a = item.address || {};
+  addrInp.value = [a.house_number, a.road].filter(Boolean).join(' ') || item.display_name.split(',')[0].trim();
+  const set = (id, val) => { const el = document.getElementById(id); if (el && val) el.value = val; };
+  set('shipCity',    a.city || a.town || a.village || a.municipality || a.county || '');
+  set('shipState',   a.state || a.region || a.province || '');
+  set('shipZip',     a.postcode || '');
+  set('shipCountry', a.country || '');
+}
+
+/* ── Card formatting ── */
+function initCardFormatting() {
+  const payCard = document.getElementById('payCard');
+  const payExp  = document.getElementById('payExp');
+  if (!payCard) return;
+
+  payCard.addEventListener('input', function () {
+    let v = this.value.replace(/\D/g,'').substring(0,16);
+    this.value = v.match(/.{1,4}/g)?.join('  ') || v;
+    const b = document.getElementById('payBrand');
+    document.querySelectorAll('.ckp-card-logo').forEach(l => l.classList.remove('on'));
+    if      (v.startsWith('4'))           { b.textContent='💙'; document.querySelector('.ckp-card-logo.visa')?.classList.add('on'); }
+    else if (/^5[1-5]|^2[2-7]/.test(v))  { b.textContent='🟠'; document.querySelector('.ckp-card-logo.mc')?.classList.add('on'); }
+    else if (/^3[47]/.test(v))            { b.textContent='🟢'; document.querySelector('.ckp-card-logo.amex')?.classList.add('on'); }
+    else                                   { b.textContent='💳'; }
+  });
+
+  payExp.addEventListener('input', function () {
+    let v = this.value.replace(/\D/g,'');
+    if (v.length >= 3) v = v.slice(0,2) + '/' + v.slice(2,4);
+    else if (v.length === 2 && !this.value.includes('/')) v += '/';
+    this.value = v;
+  });
+
+  ['payName','payCard','payExp','payCvv'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('keydown', e => { if (e.key === 'Enter') processCheckout(); });
+  });
+}
+
+/* ── Validation helpers ── */
+function luhn(n) {
+  let s = 0, a = false;
+  for (let i = n.length-1; i >= 0; i--) {
+    let d = parseInt(n[i],10);
+    if (a) { d *= 2; if (d > 9) d -= 9; }
+    s += d; a = !a;
+  }
+  return s % 10 === 0;
+}
+
+function validateExp(exp) {
+  if (!/^\d{2}\/\d{2}$/.test(exp)) return 'Formato: MM/AA';
+  const [mm, yy] = exp.split('/').map(Number);
+  if (mm < 1 || mm > 12) return 'Mes inválido (01–12)';
+  const now = new Date(), cy = now.getFullYear() % 100, cm = now.getMonth() + 1;
+  if (yy > cy + 10) return 'Año inválido';
+  if (yy < cy || (yy === cy && mm < cm)) return 'Tarjeta vencida';
+  return null;
+}
+
+/* ── Process payment ── */
+function processCheckout() {
+  const name = document.getElementById('payName').value.trim();
+  const card = document.getElementById('payCard').value.replace(/\s/g,'');
+  const exp  = document.getElementById('payExp').value.trim();
+  const cvv  = document.getElementById('payCvv').value.trim();
+  const errEl = document.getElementById('payErr');
+
+  errEl.style.display = 'none';
+  ['payName','payCard','payExp','payCvv'].forEach(id => {
+    const el = document.getElementById(id); if (el) el.classList.remove('error');
+  });
+
+  if (!name)                                    return showFieldErr('payName', 'Ingresa el nombre del titular', errEl);
+  if (card.length < 13 || !/^\d+$/.test(card))  return showFieldErr('payCard', 'Número de tarjeta inválido', errEl);
+  if (!luhn(card))                              return showFieldErr('payCard', 'Tarjeta incorrecta — verifica los dígitos', errEl);
+  const expErr = validateExp(exp);
+  if (expErr)                                   return showFieldErr('payExp', expErr, errEl);
+  if (cvv.length < 3)                           return showFieldErr('payCvv', 'CVV inválido', errEl);
+
+  if (!document.getElementById('billSame').checked) {
+    const bAddr = document.getElementById('billAddr1').value.trim();
+    const bCity = document.getElementById('billCity').value.trim();
+    if (!bAddr) return showFieldErr('billAddr1', 'Ingresa la dirección de facturación', errEl);
+    if (!bCity) return showFieldErr('billCity',  'Ingresa la ciudad de facturación', errEl);
+  }
+
+  document.getElementById('ckpPaySection').style.display  = 'none';
+  document.getElementById('ckpStateProcess').classList.add('show');
+
+  setTimeout(() => {
+    document.getElementById('ckpStateProcess').classList.remove('show');
+    if (Math.random() < 0.75) {
+      document.getElementById('ckpStateSuccess').classList.add('show');
+      document.getElementById('ckpOrderNum').textContent =
+        'Orden #DH-' + Math.random().toString(36).substr(2,8).toUpperCase();
+      localStorage.removeItem(CART_KEY);
+    } else {
+      document.getElementById('ckpStateDeclined').classList.add('show');
+    }
+  }, 2800);
+}
+
+function retryCheckout() {
+  document.getElementById('ckpStateDeclined').classList.remove('show');
+  document.querySelectorAll('.ckp-card-logo').forEach(l => l.classList.remove('on'));
+  ['payCard','payExp','payCvv'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { el.value = ''; el.classList.remove('error'); }
+  });
+  const b = document.getElementById('payBrand');
+  if (b) b.textContent = '💳';
+  document.getElementById('payErr').style.display = 'none';
+  document.getElementById('ckpPaySection').style.display = '';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  setTimeout(() => document.getElementById('payCard').focus(), 80);
+}
+</script>
+
+</body>
+</html>
