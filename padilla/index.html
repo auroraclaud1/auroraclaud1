@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>D' Padilla Food Truck — Paterson, NJ</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- AOS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+
+  <!-- ===== LOADER ===== -->
+  <div id="loader">
+    <div class="loader-content">
+      <span class="loader-truck">🚚</span>
+      <div class="loader-name">D' <span>Padilla</span></div>
+      <div class="loader-sub">Food Truck · Paterson, NJ</div>
+      <div class="loader-bar-wrap">
+        <div class="loader-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav id="navbar">
+    <a href="#" class="nav-logo">
+      <!-- Inline SVG logo: truck + fork -->
+      <svg class="logo-truck" width="30" height="30" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Truck body -->
+        <rect x="2" y="14" width="26" height="16" rx="2" fill="#e63946"/>
+        <!-- Cab -->
+        <rect x="28" y="18" width="10" height="12" rx="2" fill="#e63946"/>
+        <!-- Windshield -->
+        <rect x="29" y="19" width="7" height="6" rx="1" fill="#0d0d0d" opacity="0.6"/>
+        <!-- Wheels -->
+        <circle cx="9" cy="30" r="4" fill="#141414" stroke="#f4a229" stroke-width="2"/>
+        <circle cx="24" cy="30" r="4" fill="#141414" stroke="#f4a229" stroke-width="2"/>
+        <circle cx="35" cy="30" r="3" fill="#141414" stroke="#f4a229" stroke-width="2"/>
+        <!-- Serving window -->
+        <rect x="8" y="17" width="12" height="8" rx="1" fill="#141414" opacity="0.5"/>
+        <!-- Fork icon on truck -->
+        <line x1="12" y1="18" x2="12" y2="24" stroke="#f4a229" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="15" y1="18" x2="15" y2="21" stroke="#f4a229" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="18" y1="18" x2="18" y2="24" stroke="#f4a229" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      D' <span>Padilla</span>
+      <span class="nj-tag">NJ</span>
+    </a>
+    <div class="nav-actions">
+      <button class="cart-btn" onclick="toggleCart()">
+        <i class="fa-solid fa-basket-shopping"></i>
+        <span>My Order</span>
+        <span class="cart-badge" id="cart-count">0</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+
+    <!-- Floating food images -->
+    <img src="menu/Taco.jpg"        class="float-emoji" style="top:18%;left:6%;width:55px;height:55px;animation-duration:4.5s;animation-delay:0s">
+    <img src="menu/hamburguesa.jpg" class="float-emoji" style="top:22%;right:8%;width:65px;height:65px;animation-duration:5s;animation-delay:1s">
+    <img src="menu/coca_cola.jpg"   class="float-emoji" style="top:68%;left:4%;width:48px;height:48px;animation-duration:6s;animation-delay:0.5s">
+    <img src="menu/papas.png"       class="float-emoji" style="top:72%;right:6%;width:58px;height:58px;animation-duration:4.8s;animation-delay:2s">
+    <img src="menu/yaroa.jpg"       class="float-emoji" style="top:42%;left:2%;width:52px;height:52px;animation-duration:5.5s;animation-delay:1.5s">
+
+    <div class="hero-content">
+      <div class="hero-eyebrow" data-aos="fade-down" data-aos-duration="500">
+        <i class="fa-solid fa-location-dot"></i> Paterson, New Jersey
+      </div>
+      <h1 data-aos="fade-up" data-aos-duration="700" data-aos-delay="100">
+        <span class="l1">D' Padilla</span>
+        <span class="l2">Food Truck</span>
+        <span class="l3">🇩🇴 Dominican Street Food</span>
+      </h1>
+      <p class="hero-sub" data-aos="fade-up" data-aos-duration="700" data-aos-delay="200">
+        Yaroas, burgers, tacos & more. Authentic Dominican flavors brought straight to the streets of NJ. Order now via WhatsApp!
+      </p>
+      <a href="#menu" class="hero-cta" data-aos="fade-up" data-aos-duration="700" data-aos-delay="300">
+        <i class="fa-solid fa-utensils"></i> See Full Menu
+      </a>
+      <div class="hero-stats" data-aos="fade-up" data-aos-duration="700" data-aos-delay="400">
+        <div class="hero-stat">
+          <div class="num">14+</div>
+          <div class="lbl">Items</div>
+        </div>
+        <div class="hero-stat">
+          <div class="num">100%</div>
+          <div class="lbl">Dominican</div>
+        </div>
+        <div class="hero-stat">
+          <div class="num">⭐4.9</div>
+          <div class="lbl">Rating</div>
+        </div>
+        <div class="hero-stat">
+          <div class="num">🚚</div>
+          <div class="lbl">WhatsApp</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ===== MENU ===== -->
+  <div id="menu" class="section">
+    <div class="section-header" data-aos="fade-up">
+      <div class="section-eyebrow"><i class="fa-solid fa-fire"></i> Our Menu</div>
+      <h2 class="section-title">Everything you <span>crave</span></h2>
+    </div>
+
+    <!-- Filter tabs -->
+    <div class="filter-tabs" data-aos="fade-up" data-aos-delay="100">
+      <button class="filter-tab active" data-cat="all">🍽️ All</button>
+      <button class="filter-tab" data-cat="especial">⭐ Special</button>
+      <button class="filter-tab" data-cat="comida">🍔 Food</button>
+      <button class="filter-tab" data-cat="snacks">🌮 Snacks</button>
+      <button class="filter-tab" data-cat="bebidas">🥤 Drinks</button>
+    </div>
+
+    <!-- Products grid -->
+    <div class="products-grid" id="products-grid">
+      <!-- Rendered by JS -->
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <!-- Custom SVG logo in footer -->
+    <div style="display:flex;justify-content:center;margin-bottom:0.8rem;">
+      <svg width="52" height="52" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="14" width="26" height="16" rx="2" fill="#e63946"/>
+        <rect x="28" y="18" width="10" height="12" rx="2" fill="#e63946"/>
+        <rect x="29" y="19" width="7" height="6" rx="1" fill="#0d0d0d" opacity="0.6"/>
+        <circle cx="9" cy="30" r="4" fill="#141414" stroke="#f4a229" stroke-width="2"/>
+        <circle cx="24" cy="30" r="4" fill="#141414" stroke="#f4a229" stroke-width="2"/>
+        <circle cx="35" cy="30" r="3" fill="#141414" stroke="#f4a229" stroke-width="2"/>
+        <rect x="8" y="17" width="12" height="8" rx="1" fill="#141414" opacity="0.5"/>
+        <line x1="12" y1="18" x2="12" y2="24" stroke="#f4a229" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="15" y1="18" x2="15" y2="21" stroke="#f4a229" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="18" y1="18" x2="18" y2="24" stroke="#f4a229" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="footer-logo">D' <span>Padilla</span> Food Truck</div>
+    <div class="footer-tagline">🇩🇴 Dominican Street Food · Since Day One</div>
+    <div class="footer-location">
+      <i class="fa-solid fa-location-dot" style="color:var(--red)"></i>
+      Paterson, New Jersey
+    </div>
+    <p>Authentic Dominican flavors, right in your neighborhood.</p>
+    <div class="footer-socials">
+      <a href="https://wa.me/13479923263" target="_blank" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+      <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      <a href="#" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+      <a href="#" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+    </div>
+    <p style="font-size:0.8rem;opacity:0.5;">© 2025 D' Padilla Food Truck · Paterson, NJ · All rights reserved</p>
+  </footer>
+
+  <!-- ===== CART OVERLAY + PANEL ===== -->
+  <div id="cart-overlay" onclick="toggleCart()"></div>
+  <div id="cart-panel">
+    <div class="cart-header">
+      <div class="cart-title"><i class="fa-solid fa-basket-shopping"></i> Your Order</div>
+      <button class="cart-close" onclick="toggleCart()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div id="cart-items"></div>
+    <div class="cart-footer">
+      <div class="cart-summary" id="cart-summary"></div>
+      <button class="whatsapp-btn" id="wa-btn" onclick="sendWhatsApp()" disabled>
+        <i class="fa-brands fa-whatsapp" style="font-size:1.3rem"></i>
+        Send Order via WhatsApp
+      </button>
+      <button class="clear-btn" onclick="clearCart()">
+        <i class="fa-solid fa-trash"></i> Clear cart
+      </button>
+    </div>
+  </div>
+
+  <!-- ===== TOAST ===== -->
+  <div id="add-toast"><i class="fa-solid fa-check-circle"></i> <span id="toast-text">Added to order</span></div>
+
+  <!-- External Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+  <!-- Project Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
